@@ -1,0 +1,35 @@
+html {
+    height: 100%;
+}
+
+body{
+    background-color: gainsboro;
+    height: 100%;
+    margin: 0;
+}
+
+.center-container{
+    background-color: #eeeeee;
+}
+
+.map-container{
+    margin: 0;
+}
+
+.map-set-container{
+    width: 1000px;
+    height: 100%;
+}
+
+.map-row{
+    width: 100%;
+    margin: 0;
+    clear:both; 
+}
+
+.square{
+    border: 1px solid;
+    width: 95px;
+    height: 95px;
+    float: left;
+}
