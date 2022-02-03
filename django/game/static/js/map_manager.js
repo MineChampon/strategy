@@ -65,10 +65,9 @@ $(function () {
             square_type = $(this).data('type');
             $(this).css('background-image', `url("static/image/${square_type}.png")`);
             if ($(this).data('row') == '4' && $(this).data('col') == '4') {
-                $(this).attr('data-focus', 'True');
+                $(this).attr('data-map-focus', 'true');
             };
         });
     };
-
     draw_map();
 });

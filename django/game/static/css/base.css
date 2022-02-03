@@ -33,3 +33,19 @@ body{
     height: 95px;
     float: left;
 }
+
+.square[data-map-focus="true"]{
+    box-sizing: border-box;
+    animation: border-flash 1s linear infinite;
+}
+
+@keyframes border-flash {
+    0%,100% {
+        border: 6px dashed;
+        border-color: rgba(255, 255, 255, 0.4)
+    }
+    50% {
+        border: 6px dashed;
+        border-color: rgba(255, 255, 255, 1)
+    }
+}
