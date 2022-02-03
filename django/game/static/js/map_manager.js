@@ -1,4 +1,4 @@
-const map_over_all = [
+map_over_all = [
     [{}, {}, {}, {}, {}, {}, {}, {}, {},],
     [{}, {}, {}, {}, {}, {}, {}, {}, {},],
     [{}, {}, {}, {}, {}, {}, {}, {}, {},],
@@ -50,8 +50,7 @@ const create_map_square_html = (map_square_info) => {
         <div class="square"
             data-row="${map_square_info['row']}" 
             data-col="${map_square_info['col']}"
-            data-type="${map_square_info['type']}"
-        >
+            data-type="${map_square_info['type']}">
             ${unit_html}
             ${map_square_info['row']}-${map_square_info['col']} 
         </div>
@@ -59,8 +58,48 @@ const create_map_square_html = (map_square_info) => {
     return map_square_html
 };
 
+
+const action_window_html = () => {
+    const __action_window_html = `
+        <div class="action-window">
+            <div class="move action-menu choice-action pt-2">
+                <p>いどう<p>
+            </div>
+            <div class="attack action-menu pt-2">
+                <p>こうげき</p>
+            </div>
+            <div class="attack action-menu pt-2">
+                <p>のうりょく</p>
+            </div>
+        </div>
+    `;
+    return __action_window_html;
+};
+
 $(function () {
-    const draw_map = () => {
+
+    get_square_dom = (row, col) => {
+        return $(`.square[data-row=${row}][data-col=${col}]`);
+    };
+
+    // 行動選択ウィンドウ周り
+    add_action_window_dom = (focus_square_dom) => {
+        focus_square_dom.append(action_window_html());
+    };
+
+    remove_action_window_dom = () => {
+        $('.action-window').remove();
+    };
+
+    select_action_menu = (direction) => {
+        choice_action_index = $('.choice-action').index('.action-menu');
+        $('.choice-action').removeClass('choice-action');
+        $('.action-menu')
+            .eq(choice_action_index + direction)
+            .addClass('choice-action');
+    };
+
+    draw_map = () => {
         $('.map-set-container').html('');
         for (let [row_index, map_row] of map_over_all.entries()) {
             let squares_html_list = [];

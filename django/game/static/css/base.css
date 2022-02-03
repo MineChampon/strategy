@@ -45,7 +45,7 @@ body{
 @keyframes border-flash {
     0%,100% {
         border: 6px dashed;
-        border-color: rgba(255, 255, 255, 0.2)
+        border-color: rgba(255, 255, 255, 0.5)
     }
     50% {
         border: 6px dashed;
@@ -56,11 +56,28 @@ body{
 .action-window{
     width: 140px;
     height: 200px;
-    position: absolute;
+    position: relative;
 }
 
-.action-window-menu{
-    background-color: #eeeeee;
+.action-menu{
+    background-color: #fefefe;
     border: 2px solid;
     text-align: center;
+}
+
+.choice-action{
+    animation: choice-action-flash 1s linear infinite;
+}
+
+.square[data-map-focus="true"]{
+    animation: border-flash 1s linear infinite;
+}
+
+@keyframes choice-action-flash {
+    0%,100% {
+        background-color: #fff;
+    }
+    50% {
+        background-color: #999;
+    }
 }
