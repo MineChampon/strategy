@@ -6,6 +6,9 @@ body{
     background-color: gainsboro;
     height: 100%;
     margin: 0;
+    font-smooth: never;
+    -webkit-font-smoothing: none;
+    font-family: "pokemon-font", monospace;
 }
 
 .center-container{
@@ -42,10 +45,22 @@ body{
 @keyframes border-flash {
     0%,100% {
         border: 6px dashed;
-        border-color: rgba(255, 255, 255, 0.4)
+        border-color: rgba(255, 255, 255, 0.2)
     }
     50% {
         border: 6px dashed;
         border-color: rgba(255, 255, 255, 1)
     }
+}
+
+.action-window{
+    width: 140px;
+    height: 200px;
+    position: absolute;
+}
+
+.action-window-menu{
+    background-color: #eeeeee;
+    border: 2px solid;
+    text-align: center;
 }

@@ -5,8 +5,10 @@ const map_over_all = [
     [{}, {}, {}, {}, {}, {}, {}, {}, {},],
     [{}, {}, {}, {}, {}, {}, {}, {}, {},],
     [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
+    [{}, {}, {}, {}, {}, {}, { 'unit': new Centaur() }, {}, {},],
+    [{}, {}, {}, {}, {}, {}, {}, {
+        'unit': new Dragon()
+    }, {},],
     [{}, {}, {}, {}, {}, {}, {}, {}, {},],
 ];
 
@@ -17,7 +19,7 @@ square_types = [
 ];
 
 const random_map_square_type = () => {
-    if (Math.floor(Math.random() * 2)) {
+    if (Math.floor(Math.random() * 4)) {
         return 'grass'
     };
     return square_types[Math.floor(Math.random() * square_types.length)];
@@ -26,20 +28,32 @@ const random_map_square_type = () => {
 
 const add_row_html = (squares_html) => {
     return `
-    <div class="map-row w-100">
-        ${squares_html}
-    </div>
+        <div class="map-row w-100">
+            ${squares_html}
+        </div>
     `;
 };
 
 const create_map_square_html = (map_square_info) => {
+    let unit_html = '';
+    if (map_square_info['unit']) {
+        unit = map_square_info['unit'];
+        unit_html = `
+            <div class="unit w-100 h-100">
+                <img class="unit-img w-100 h-100" src="static/image/${unit.code}_map.png">
+                </img>
+            </div>
+        `;
+    };
+
     const map_square_html = `
         <div class="square"
             data-row="${map_square_info['row']}" 
             data-col="${map_square_info['col']}"
             data-type="${map_square_info['type']}"
         >
-            ${map_square_info['row']} : ${map_square_info['col']} 
+            ${unit_html}
+            ${map_square_info['row']}-${map_square_info['col']} 
         </div>
     `;
     return map_square_html
