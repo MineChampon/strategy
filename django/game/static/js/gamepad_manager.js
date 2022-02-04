@@ -31,6 +31,18 @@ let operation_mode = 'map';
 
 let choice_unit_position = [4, 4];
 
+let do_not_accept_entry = false;
+
+accept_entry = () => {
+    do_not_accept_entry = false;
+};
+
+not_accept_entry = () => {
+    do_not_accept_entry = true;
+};
+
+
+
 press_A = () => {
     console.log('Aボタン押下');
     // ボタン長押しさせない
@@ -72,11 +84,17 @@ press_A = () => {
         // 移動できるマスなら
         if (get_square_dom(...map_gamepad_focus).hasClass('movable')) {
             (async () => {
+                // 入力を受け付けない
+                await not_accept_entry();
+                // 移動範囲表示消す。アクションウィンドウ消す。
+                cancel_move_mode();
+                // ユニット移動処理、アニメーション。
                 await move_unit(choice_unit_position, map_gamepad_focus);
                 // 選択ユニットを移動先へ。参照渡し対策でparseInt
                 choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
                 choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
-                cancel_move_mode();
+                // 入力OK
+                await accept_entry();
                 operation_mode = 'moved_action';
             })();
         };
@@ -191,7 +209,7 @@ $(function () {
 
     const main = (e) => {
         let gamepad = navigator.getGamepads()[e.gamepad.index];
-        if (!(gamepad)) {
+        if (!(gamepad) || do_not_accept_entry) {
             return;
         };
 

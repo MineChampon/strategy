@@ -23,7 +23,7 @@ const add_row_html = (squares_html) => {
 const create_map_square_html = (map_square_info) => {
     let unit_html = '';
     if (map_square_info['unit']) {
-        unit = map_square_info['unit'];
+        const unit = map_square_info['unit'];
         unit_html = `
             <div class="unit w-100 h-100">
                 <img class="unit-img w-100 h-100" src="static/image/${unit.code}_map.png">
@@ -61,10 +61,10 @@ const action_window_html = () => {
     return __action_window_html;
 };
 
-const create_unit_html = (unit_object) => {
+const create_unit_html = (unit_code) => {
     const unit_html = `
         <div class="unit w-100 h-100">
-            <img class="unit-img w-100 h-100" src="static/image/${unit.code}_map.png">
+            <img class="unit-img w-100 h-100" src="static/image/${unit_code}_map.png">
             </img>
         </div>
     `;
@@ -84,7 +84,7 @@ $(function () {
 
     set_unit_dom = (unit_object, row, col) => {
         return get_square_dom(row, col).html(
-            create_unit_html(unit_object));
+            create_unit_html(unit_object.code));
 
     };
 
