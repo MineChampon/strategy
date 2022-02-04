@@ -29,6 +29,8 @@ let frame_config = frame_manager();
 
 let operation_mode = 'map';
 
+let choice_unit_position = [4, 4];
+
 press_A = () => {
     console.log('Aボタン押下');
     // ボタン長押しさせない
@@ -51,8 +53,13 @@ press_A = () => {
     if (operation_mode == 'action') {
         const choice_action = get_choice_action_dom();
         if (choice_action.hasClass('move')) {
+            // モード変更
             __operation_mode = 'move';
-            change_mode_move(...map_gamepad_focus);
+            // 選択ユニットの座標保持
+            choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
+            choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
+            // 移動モードに切り替える。
+            change_move_mode(...map_gamepad_focus);
         };
         if (choice_action.hasClass('attack')) {
             console.log();
@@ -75,6 +82,10 @@ press_B = () => {
         operation_mode = 'map';
     };
     if (operation_mode == 'move') {
+        cancel_move_mode();
+        // カーソルを元に戻す。参照渡し対策でparseInt
+        map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
+        map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
         operation_mode = 'action';
     };
 };
@@ -93,6 +104,12 @@ press_UP = () => {
     if (operation_mode == 'action') {
         select_action_menu(-1);
     };
+
+    // 移動モード中の上キー押下なら
+    if (operation_mode == 'move') {
+        // 不安あり
+        map_gamepad_focus[0] -= 1;
+    };
 };
 
 press_DOWN = () => {
@@ -104,9 +121,16 @@ press_DOWN = () => {
     if (operation_mode == 'map') {
         map_gamepad_focus[0] += 1;
     };
+
     // 行動選択中の下キー押下なら
     if (operation_mode == 'action') {
         select_action_menu(1);
+    };
+
+    // 移動モード中の下キー押下なら
+    if (operation_mode == 'move') {
+        // 不安あり
+        map_gamepad_focus[0] += 1;
     };
 };
 
@@ -119,6 +143,12 @@ press_LEFT = () => {
     if (operation_mode == 'map') {
         map_gamepad_focus[1] -= 1;
     };
+
+    // 移動モード中の左キー押下なら
+    if (operation_mode == 'move') {
+        // 不安あり
+        map_gamepad_focus[1] -= 1;
+    };
 };
 
 press_RIGHT = () => {
@@ -128,6 +158,12 @@ press_RIGHT = () => {
 
     // マップ上での右キー押下なら
     if (operation_mode == 'map') {
+        map_gamepad_focus[1] += 1;
+    };
+
+    // 移動モード中の右キー押下なら
+    if (operation_mode == 'move') {
+        // 不安あり
         map_gamepad_focus[1] += 1;
     };
 };

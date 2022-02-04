@@ -83,12 +83,12 @@ body{
 }
 
 .movable{
-    animation: movable-flash 1s linear infinite;
+    animation: movable-flash 2s linear infinite;
 }
 
 @keyframes movable-flash {
     0%,100% {
-        opacity: 0.7;
+        opacity: 0.6;
 
     }
     50% {

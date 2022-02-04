@@ -102,12 +102,18 @@ $(function () {
     select_action_menu = (direction) => {
         choice_action_index = $('.choice-action').index('.action-menu');
         $('.choice-action').removeClass('choice-action');
-        $('.action-menu')
+        const choice_action_dom = $('.action-menu')
             .eq(choice_action_index + direction)
             .addClass('choice-action');
+        // eqの仕様対策
+        if (!choice_action_dom.length) {
+            $('.action-menu')
+                .eq(0)
+                .addClass('choice-action');
+        };
     };
 
-    change_mode_move = (row, col) => {
+    change_move_mode = (row, col) => {
         const move_range = map_over_all[row][col].unit.move;
         $('.square').filter((index, element) => {
             distance = Math.abs(parseInt(element.dataset.row) - row) + Math.abs(parseInt(element.dataset.col) - col);
@@ -117,6 +123,11 @@ $(function () {
             return false;
         }).addClass('movable');
         get_action_window_dom().addClass('d-none');
+    };
+
+    cancel_move_mode = () => {
+        $('.movable').removeClass('movable');
+        get_action_window_dom().removeClass('d-none');
     };
 
     draw_map = () => {
