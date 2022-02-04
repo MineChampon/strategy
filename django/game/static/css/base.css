@@ -6,6 +6,9 @@ body{
     background-color: gainsboro;
     height: 100%;
     margin: 0;
+    font-smooth: never;
+    -webkit-font-smoothing: none;
+    font-family: "pokemon-font", monospace;
 }
 
 .center-container{
@@ -32,4 +35,49 @@ body{
     width: 95px;
     height: 95px;
     float: left;
+}
+
+.square[data-map-focus="true"]{
+    box-sizing: border-box;
+    animation: border-flash 1s linear infinite;
+}
+
+@keyframes border-flash {
+    0%,100% {
+        border: 6px dashed;
+        border-color: rgba(255, 255, 255, 0.5)
+    }
+    50% {
+        border: 6px dashed;
+        border-color: rgba(255, 255, 255, 1)
+    }
+}
+
+.action-window{
+    width: 140px;
+    height: 200px;
+    position: relative;
+}
+
+.action-menu{
+    background-color: #fefefe;
+    border: 2px solid;
+    text-align: center;
+}
+
+.choice-action{
+    animation: choice-action-flash 1s linear infinite;
+}
+
+.square[data-map-focus="true"]{
+    animation: border-flash 1s linear infinite;
+}
+
+@keyframes choice-action-flash {
+    0%,100% {
+        background-color: #fff;
+    }
+    50% {
+        background-color: #999;
+    }
 }
