@@ -38,9 +38,8 @@ press_A = () => {
     let __operation_mode = operation_mode;
     // マップ上でのAボタン押下なら
     if (operation_mode == 'map') {
-        let focus_square = map_over_all[map_gamepad_focus[0]][map_gamepad_focus[1]];
         // 選択したマスにユニットがいたら？
-        if (!!(focus_square.unit)) {
+        if (get_unit(...map_gamepad_focus)) {
             // 行動選択ウィンドウ出す。
             let focus_square_dom = get_square_dom(...map_gamepad_focus);
             add_action_window_dom(focus_square_dom);
@@ -67,6 +66,14 @@ press_A = () => {
         if (choice_action.hasClass('status')) {
             console.log();
         };
+    };
+
+    if (operation_mode == 'move') {
+        // 移動できるマスなら
+        move_unit(choice_unit_position, map_gamepad_focus);
+        choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
+        choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
+        operation_mode = 'action';
     };
 
     operation_mode = __operation_mode;

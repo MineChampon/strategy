@@ -1,21 +1,7 @@
-map_over_all = [
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-    [{}, {}, {}, {}, {}, {}, { 'unit': new Centaur() }, {}, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {
-        'unit': new Dragon()
-    }, {},],
-    [{}, {}, {}, {}, {}, {}, {}, {}, {},],
-];
-
 square_types = [
     'grass',
-    // 'ocean',
-    'mountain',
+    'ocean',
+    // 'mountain',
 ];
 
 const random_map_square_type = () => {
@@ -52,7 +38,6 @@ const create_map_square_html = (map_square_info) => {
             data-col="${map_square_info['col']}"
             data-type="${map_square_info['type']}">
             ${unit_html}
-            ${map_square_info['row']}-${map_square_info['col']} 
         </div>
     `;
     return map_square_html
@@ -80,6 +65,15 @@ $(function () {
 
     get_square_dom = (row, col) => {
         return $(`.square[data-row=${row}][data-col=${col}]`);
+    };
+
+    get_unit_dom = (row, col) => {
+        // return get_square_dom(row, col).find('.unit');
+        return get_square_dom(row, col).children();
+    };
+
+    set_unit_dom = (unit_dom, row, col) => {
+        return get_square_dom(row, col).prepend(unit_dom);
     };
 
     // 行動選択ウィンドウ周り
@@ -114,7 +108,7 @@ $(function () {
     };
 
     change_move_mode = (row, col) => {
-        const move_range = map_over_all[row][col].unit.move;
+        const move_range = get_unit(row, col).move;
         $('.square').filter((index, element) => {
             distance = Math.abs(parseInt(element.dataset.row) - row) + Math.abs(parseInt(element.dataset.col) - col);
             if (move_range >= distance) {
@@ -128,6 +122,21 @@ $(function () {
     cancel_move_mode = () => {
         $('.movable').removeClass('movable');
         get_action_window_dom().removeClass('d-none');
+    };
+
+    //　ユニット移動関数
+    move_unit = (before_position, after_position) => {
+        // ユニット情報取得＆DOM取得　
+        unit_object = get_unit(...before_position);
+        unit_dom = get_unit_dom(...before_position);
+
+        // 元々ユニットがいたマスからユニットを削除する。
+        delete_unit(...before_position);
+        unit_dom.remove();
+
+        // ユニットをセットする。
+        set_unit(unit_object, ...after_position);
+        set_unit_dom(unit_dom, ...after_position);
     };
 
     draw_map = () => {
