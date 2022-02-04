@@ -33,7 +33,7 @@ press_A = () => {
     console.log('Aボタン押下');
     // ボタン長押しさせない
     button_a_pressed = true;
-
+    let __operation_mode = operation_mode;
     // マップ上でのAボタン押下なら
     if (operation_mode == 'map') {
         let focus_square = map_over_all[map_gamepad_focus[0]][map_gamepad_focus[1]];
@@ -44,9 +44,25 @@ press_A = () => {
             add_action_window_dom(focus_square_dom);
 
             // ウィンドウにフォーカスを当てるイメージ。
-            operation_mode = 'action';
+            __operation_mode = 'action';
         };
     };
+
+    if (operation_mode == 'action') {
+        const choice_action = get_choice_action_dom();
+        if (choice_action.hasClass('move')) {
+            __operation_mode = 'move';
+            change_mode_move(...map_gamepad_focus);
+        };
+        if (choice_action.hasClass('attack')) {
+            console.log();
+        };
+        if (choice_action.hasClass('status')) {
+            console.log();
+        };
+    };
+
+    operation_mode = __operation_mode;
 };
 
 press_B = () => {
@@ -57,6 +73,9 @@ press_B = () => {
     if (operation_mode == 'action') {
         remove_action_window_dom();
         operation_mode = 'map';
+    };
+    if (operation_mode == 'move') {
+        operation_mode = 'action';
     };
 };
 

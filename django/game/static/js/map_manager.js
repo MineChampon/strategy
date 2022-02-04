@@ -68,7 +68,7 @@ const action_window_html = () => {
             <div class="attack action-menu pt-2">
                 <p>こうげき</p>
             </div>
-            <div class="attack action-menu pt-2">
+            <div class="status action-menu pt-2">
                 <p>のうりょく</p>
             </div>
         </div>
@@ -83,6 +83,14 @@ $(function () {
     };
 
     // 行動選択ウィンドウ周り
+    get_choice_action_dom = () => {
+        return $('.choice-action');
+    };
+
+    get_action_window_dom = () => {
+        return $('.action-window');
+    };
+
     add_action_window_dom = (focus_square_dom) => {
         focus_square_dom.append(action_window_html());
     };
@@ -97,6 +105,18 @@ $(function () {
         $('.action-menu')
             .eq(choice_action_index + direction)
             .addClass('choice-action');
+    };
+
+    change_mode_move = (row, col) => {
+        const move_range = map_over_all[row][col].unit.move;
+        $('.square').filter((index, element) => {
+            distance = Math.abs(parseInt(element.dataset.row) - row) + Math.abs(parseInt(element.dataset.col) - col);
+            if (move_range >= distance) {
+                return true;
+            };
+            return false;
+        }).addClass('movable');
+        get_action_window_dom().addClass('d-none');
     };
 
     draw_map = () => {
