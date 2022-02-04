@@ -53,6 +53,10 @@ body{
     }
 }
 
+.unit{
+    z-index: 10;
+}
+
 .action-window{
     width: 140px;
     height: 200px;

@@ -8,5 +8,5 @@ delete_unit = (row, col) => {
 
 set_unit = (unit_object, row, col) => {
     map_over_all[row][col].unit = unit_object;
-    return true;
+    return map_over_all[row][col].unit;
 };

@@ -71,10 +71,14 @@ press_A = () => {
     if (operation_mode == 'move') {
         // 移動できるマスなら
         if (get_square_dom(...map_gamepad_focus).hasClass('movable')) {
-            move_unit(choice_unit_position, map_gamepad_focus);
-            choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
-            choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
-            operation_mode = 'action';
+            (async () => {
+                await move_unit(choice_unit_position, map_gamepad_focus);
+                // 選択ユニットを移動先へ。参照渡し対策でparseInt
+                choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
+                choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
+                cancel_move_mode();
+                operation_mode = 'moved_action';
+            })();
         };
     };
 
