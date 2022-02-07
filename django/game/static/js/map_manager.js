@@ -23,7 +23,7 @@ const add_row_html = (squares_html) => {
 const create_map_square_html = (map_square_info) => {
     let unit_html = '';
     if (map_square_info['unit']) {
-        unit = map_square_info['unit'];
+        const unit = map_square_info['unit'];
         unit_html = `
             <div class="unit w-100 h-100">
                 <img class="unit-img w-100 h-100" src="static/image/${unit.code}_map.png">
@@ -61,6 +61,16 @@ const action_window_html = () => {
     return __action_window_html;
 };
 
+const create_unit_html = (unit_code) => {
+    const unit_html = `
+        <div class="unit w-100 h-100">
+            <img class="unit-img w-100 h-100" src="static/image/${unit_code}_map.png">
+            </img>
+        </div>
+    `;
+    return unit_html;
+};
+
 $(function () {
 
     get_square_dom = (row, col) => {
@@ -72,8 +82,10 @@ $(function () {
         return get_square_dom(row, col).children();
     };
 
-    set_unit_dom = (unit_dom, row, col) => {
-        return get_square_dom(row, col).prepend(unit_dom);
+    set_unit_dom = (unit_object, row, col) => {
+        return get_square_dom(row, col).html(
+            create_unit_html(unit_object.code));
+
     };
 
     // 行動選択ウィンドウ周り
@@ -125,18 +137,22 @@ $(function () {
     };
 
     //　ユニット移動関数
-    move_unit = (before_position, after_position) => {
+    move_unit = async (before_position, after_position) => {
         // ユニット情報取得＆DOM取得　
         unit_object = get_unit(...before_position);
         unit_dom = get_unit_dom(...before_position);
 
         // 元々ユニットがいたマスからユニットを削除する。
+        // ユニット移動アニメーション実行、同期処理
         delete_unit(...before_position);
+        remove_action_window_dom();
+        await unit_move_animate(
+            unit_dom, get_square_dom(...after_position));
         unit_dom.remove();
 
         // ユニットをセットする。
-        set_unit(unit_object, ...after_position);
-        set_unit_dom(unit_dom, ...after_position);
+        set_unit_dom(
+            set_unit(unit_object, ...after_position), ...after_position);
     };
 
     draw_map = () => {
