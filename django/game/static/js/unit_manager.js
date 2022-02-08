@@ -115,6 +115,7 @@ class NewGundam extends Unit {
             '1500',
             [1],
             20,
+            true,
         ),
         new AttackFunction(
             'beam_rifle',
@@ -122,7 +123,6 @@ class NewGundam extends Unit {
             '1600',
             [1, 5],
             -10,
-            true,
         ),
         new AttackFunction(
             'fin_funnel',
