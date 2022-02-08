@@ -39,7 +39,7 @@ class Beko extends Unit {
         new AttackFunction(
             'fire',
             'ほのお',
-            '1400'
+            '1400',
         )
     ];
 };
@@ -61,11 +61,17 @@ class Dragon extends Unit {
             'body_blow',
             'たいあたり',
             '1000',
+            [1],
+            30,
+            true,
         ),
         new AttackFunction(
             'fire',
             'ほのお',
-            '1400'
+            '1400',
+            [1, 3],
+            -10,
+            true,
         )
     ];
 };

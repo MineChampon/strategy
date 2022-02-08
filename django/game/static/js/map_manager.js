@@ -158,6 +158,25 @@ $(function () {
         };
     };
 
+    select_attack_function = (direction) => {
+        choice_func_index =
+            $('.choice-attack-function').index('.attack-function');
+        $('.choice-attack-function').removeClass('choice-attack-function');
+        const choice_func_dom = $('.attack-function')
+            .eq(choice_func_index + direction)
+            .addClass('choice-attack-function');
+        // eqの仕様対策
+        if (!choice_func_dom.length) {
+            $('.attack-function')
+                .eq(0)
+                .addClass('choice-attack-function');
+        };
+    };
+
+    window_focus_change = (remove_class) => {
+        $(`.${remove_class}`).removeClass(remove_class);
+    };
+
     change_move_mode = (row, col) => {
         const move_range = get_unit(row, col).move;
         $('.square').filter((index, element) => {
@@ -214,11 +233,14 @@ $(function () {
         square = get_square_dom(row, col);
         unit = get_unit(row, col);
         square.append($(create_attack_functions_window_html(unit)));
-
+        window_focus_change(
+            remove_class = 'choice-action');
     };
 
     cancel_select_attack_functions_mode = () => {
         $('.attack-functions-window').remove();
+        $('.attack')
+            .addClass('choice-action');
     };
 
     draw_map = () => {

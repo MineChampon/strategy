@@ -82,33 +82,6 @@ body{
     animation: choice-action-flash 1s linear infinite;
 }
 
-.square[data-map-focus="true"]{
-    animation: border-flash 1s linear infinite;
-}
-
-@keyframes choice-action-flash {
-    0%,100% {
-        background-color: #fff;
-    }
-    50% {
-        background-color: #999;
-    }
-}
-
-.movable{
-    animation: movable-flash 2s linear infinite;
-}
-
-@keyframes movable-flash {
-    0%,100% {
-        opacity: 0.5;
-
-    }
-    50% {
-        opacity: 0.2;
-    }
-}
-
 .attack-functions-window{
     width: 250px;
     height: 200px;
@@ -124,4 +97,35 @@ body{
     background-color: #fefefe;
     border: 2px solid;
     text-align: center;
+}
+
+.choice-attack-function{
+    animation: choice-action-flash 1s linear infinite;
+}
+
+.square[data-map-focus="true"]{
+    animation: border-flash 1s linear infinite;
+}
+
+@keyframes choice-action-flash {
+    0%,100% {
+        background-color: #fff;
+    }
+    50% {
+        background-color: #ccc;
+    }
+}
+
+.movable{
+    animation: movable-flash 2s linear infinite;
+}
+
+@keyframes movable-flash {
+    0%,100% {
+        opacity: 0.5;
+
+    }
+    50% {
+        opacity: 0.2;
+    }
 }

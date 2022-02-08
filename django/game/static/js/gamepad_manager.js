@@ -144,7 +144,6 @@ press_B = () => {
         operation_mode = 'action';
     };
     if (operation_mode == 'moved_action') {
-        console.log('Bボタンムーブド');
         cancel_moved_action_mode(choice_unit_position, before_unit_position);
         choice_unit_position[0] = parseInt(before_unit_position[0]);
         choice_unit_position[1] = parseInt(before_unit_position[1]);
@@ -181,6 +180,12 @@ press_UP = () => {
         map_gamepad_focus[0] -= 1;
     };
 
+    // 技選択モード中の上キー押下なら
+    if (operation_mode == 'select_attack') {
+        // 不安あり
+        select_attack_function(-1);
+    };
+
     // 移動後行動選択中の上キー押下なら
     if (operation_mode == 'moved_action') {
         select_action_menu(-1);
@@ -206,6 +211,12 @@ press_DOWN = () => {
     if (operation_mode == 'move') {
         // 不安あり
         map_gamepad_focus[0] += 1;
+    };
+
+    // 技選択モード中の下キー押下なら
+    if (operation_mode == 'select_attack') {
+        // 不安あり
+        select_attack_function(1);
     };
 
     // 移動後行動選択中の下キー押下なら
