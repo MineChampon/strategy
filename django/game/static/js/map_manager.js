@@ -95,9 +95,10 @@ const create_attack_functions_window_html = (unit) => {
     for (const func of unit.attack_functions) {
         attack_functions_html += `
             <div class="aaa attack-function ${choice_attack_function} pt-2">
-                <p>${func.code}<p>
-                <p>${func.name}<p>
-                <p>${func.power}<p>
+                <p>${func.name}</p>
+                <p>いりょく: ${func.power}</p>
+                <p>はんい: ${func.range}</p>
+                <p>クリティカル: ${func.critical}%</p>
             </div>
         `;
         choice_attack_function = '';

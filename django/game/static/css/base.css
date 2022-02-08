@@ -110,7 +110,7 @@ body{
 }
 
 .attack-functions-window{
-    width: 300px;
+    width: 250px;
     height: 200px;
     position: relative;
     z-index: 30;
