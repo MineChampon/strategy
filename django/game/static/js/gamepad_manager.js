@@ -10,7 +10,7 @@ let cross_key_left_right_pressed = false;
 let button_a_pressed = false;
 let button_b_pressed = false;
 
-let map_gamepad_focus = [4, 4]
+let map_gamepad_focus = [5, 5]
 
 // 使ってない。使うべきである。
 let map_max_size = 9;
@@ -19,8 +19,8 @@ let map_min_size = 9;
 // やらなくていい
 const frame_manager = () => {
     __frame_config = {
-        'operation_mode': '',
-        'frame_map_focus': [4, 4]
+        'operation_mode': 'map',
+        'frame_map_focus': [5, 5]
     };
     return __frame_config;
 };
@@ -29,7 +29,7 @@ let frame_config = frame_manager();
 
 let operation_mode = 'map';
 
-let choice_unit_position = [4, 4];
+let choice_unit_position = [5, 5];
 
 do_not_accept_entry = false;
 

@@ -64,10 +64,12 @@ body{
 }
 
 .action-window{
-    width: 140px;
+    width: 150px;
     height: 200px;
     position: relative;
     z-index: 20;
+    top: -100px;
+    left: 100px;
 }
 
 .action-menu{
