@@ -31,6 +31,9 @@ let operation_mode = 'map';
 
 let choice_unit_position = [5, 5];
 
+// 移動キャンセルに使います
+let before_unit_position = [5, 5];
+
 do_not_accept_entry = false;
 
 accept_entry = () => {
@@ -51,8 +54,8 @@ press_A = () => {
         // 選択したマスにユニットがいたら？
         if (get_unit(...map_gamepad_focus)) {
             // 行動選択ウィンドウ出す。
-            let focus_square_dom = get_square_dom(...map_gamepad_focus);
-            add_action_window_dom(focus_square_dom);
+            add_action_window_dom(
+                get_square_dom(...map_gamepad_focus));
 
             // ウィンドウにフォーカスを当てるイメージ。
             __operation_mode = 'action';
@@ -94,6 +97,9 @@ press_A = () => {
                 cancel_move_mode();
                 // ユニット移動処理、アニメーション。
                 await move_unit(choice_unit_position, map_gamepad_focus);
+                //移動前避難
+                before_unit_position[0] = parseInt(choice_unit_position[0]);
+                before_unit_position[1] = parseInt(choice_unit_position[1]);
                 // 選択ユニットを移動先へ。参照渡し対策でparseInt
                 choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
                 choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
@@ -135,6 +141,17 @@ press_B = () => {
         // カーソルを元に戻す。参照渡し対策でparseInt
         map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
         map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
+        operation_mode = 'action';
+    };
+    if (operation_mode == 'moved_action') {
+        console.log('Bボタンムーブド');
+        cancel_moved_action_mode(choice_unit_position, before_unit_position);
+        choice_unit_position[0] = parseInt(before_unit_position[0]);
+        choice_unit_position[1] = parseInt(before_unit_position[1]);
+        map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
+        map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
+        add_action_window_dom(
+            get_square_dom(...map_gamepad_focus));
         operation_mode = 'action';
     };
     if (operation_mode == 'select_attack') {

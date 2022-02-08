@@ -196,6 +196,19 @@ $(function () {
             set_unit(unit_object, ...after_position), ...after_position);
     };
 
+    cancel_moved_action_mode = (choice_unit_position, before_unit_position) => {
+        // ユニット情報取得＆DOM取得　
+        unit_object = get_unit(...choice_unit_position);
+        unit_dom = get_unit_dom(...choice_unit_position);
+        // 元々ユニットがいたマスからユニットを削除する。
+        delete_unit(...choice_unit_position);
+        remove_action_window_dom();
+        unit_dom.remove();
+        // ユニットをセットする。
+        set_unit_dom(
+            set_unit(unit_object, ...before_unit_position), ...before_unit_position);
+    };
+
     change_select_attack_functions_mode = (row, col) => {
         square = get_square_dom(row, col);
         unit = get_unit(row, col);
