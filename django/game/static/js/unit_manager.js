@@ -109,3 +109,34 @@ class Centaur extends Unit {
         ),
     ];
 };
+
+class NewGundam extends Unit {
+    constructor() {
+        super(
+            'ν_gundam',
+            'νガンダム',
+            2800,
+            1200,
+            500,
+            2500,
+            7,
+        );
+    };
+    attack_functions = [
+        new AttackFunction(
+            'beam_saber',
+            'ビームサーベル',
+            '1500',
+        ),
+        new AttackFunction(
+            'beam_rifle',
+            'ビームライフル',
+            '1600'
+        ),
+        new AttackFunction(
+            'fin_funnel',
+            'フィン・ファンネル',
+            '5800'
+        ),
+    ];
+};
