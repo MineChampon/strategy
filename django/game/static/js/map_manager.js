@@ -1,15 +1,16 @@
 square_types = [
     'grass',
     'ocean',
-    // 'mountain',
+    'ground',
+    'mountain',
 ];
 
 const random_map_square_type = () => {
-    if (Math.floor(Math.random() * 4)) {
-        return 'grass'
-    };
-    return square_types[Math.floor(Math.random() * square_types.length)];
-
+    return 'ground'
+    // if (Math.floor(Math.random() * 2)) {
+    //     return 'grass';
+    // };
+    // return square_types[Math.floor(Math.random() * square_types.length)];
 };
 
 const add_row_html = (squares_html) => {
@@ -61,6 +62,20 @@ const action_window_html = () => {
     return __action_window_html;
 };
 
+const moved_action_window_html = () => {
+    const __moved_action_window_html = `
+        <div class="action-window">
+            <div class="standby action-menu choice-action pt-2">
+                <p>たいき<p>
+            </div>
+            <div class="moved_attack action-menu pt-2">
+                <p>こうげき</p>
+            </div>
+        </div>
+    `;
+    return __moved_action_window_html;
+};
+
 const create_unit_html = (unit_code) => {
     const unit_html = `
         <div class="unit w-100 h-100">
@@ -85,7 +100,6 @@ $(function () {
     set_unit_dom = (unit_object, row, col) => {
         return get_square_dom(row, col).html(
             create_unit_html(unit_object.code));
-
     };
 
     // 行動選択ウィンドウ周り
@@ -99,6 +113,10 @@ $(function () {
 
     add_action_window_dom = (focus_square_dom) => {
         focus_square_dom.append(action_window_html());
+    };
+
+    add_moved_action_window_dom = (focus_square_dom) => {
+        focus_square_dom.append(moved_action_window_html());
     };
 
     remove_action_window_dom = () => {
@@ -122,6 +140,9 @@ $(function () {
     change_move_mode = (row, col) => {
         const move_range = get_unit(row, col).move;
         $('.square').filter((index, element) => {
+            // if ($(element).find('unit')) {
+            //     return false;
+            // };
             distance = Math.abs(parseInt(element.dataset.row) - row) + Math.abs(parseInt(element.dataset.col) - col);
             if (move_range >= distance) {
                 return true;
@@ -172,8 +193,10 @@ $(function () {
 
         $('.square').each(function () {
             square_type = $(this).data('type');
-            $(this).css('background-image', `url("static/image/${square_type}.png")`);
-            if ($(this).data('row') == '4' && $(this).data('col') == '4') {
+            $(this)
+                .css('background-image', `url("static/image/${square_type}.png")`)
+                .css('background-size', 'auto');
+            if ($(this).data('row') == '5' && $(this).data('col') == '5') {
                 $(this).attr('data-map-focus', 'true');
             };
         });

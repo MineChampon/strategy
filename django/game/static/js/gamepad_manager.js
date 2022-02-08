@@ -31,7 +31,7 @@ let operation_mode = 'map';
 
 let choice_unit_position = [4, 4];
 
-let do_not_accept_entry = false;
+do_not_accept_entry = false;
 
 accept_entry = () => {
     do_not_accept_entry = false;
@@ -40,8 +40,6 @@ accept_entry = () => {
 not_accept_entry = () => {
     do_not_accept_entry = true;
 };
-
-
 
 press_A = () => {
     console.log('Aボタン押下');
@@ -96,7 +94,21 @@ press_A = () => {
                 // 入力OK
                 await accept_entry();
                 operation_mode = 'moved_action';
+                add_moved_action_window_dom(get_square_dom(...choice_unit_position));
             })();
+        };
+    };
+
+    if (operation_mode == 'moved_action') {
+        const choice_action = get_choice_action_dom();
+        if (choice_action.hasClass('standby')) {
+            // モード変更
+            remove_action_window_dom();
+            __operation_mode = 'map';
+        };
+
+        if (choice_action.hasClass('moved_attack')) {
+            console.log();
         };
     };
 
@@ -141,6 +153,11 @@ press_UP = () => {
         // 不安あり
         map_gamepad_focus[0] -= 1;
     };
+
+    // 移動後行動選択中の上キー押下なら
+    if (operation_mode == 'moved_action') {
+        select_action_menu(-1);
+    };
 };
 
 press_DOWN = () => {
@@ -162,6 +179,11 @@ press_DOWN = () => {
     if (operation_mode == 'move') {
         // 不安あり
         map_gamepad_focus[0] += 1;
+    };
+
+    // 移動後行動選択中の下キー押下なら
+    if (operation_mode == 'moved_action') {
+        select_action_menu(1);
     };
 };
 
