@@ -34,12 +34,12 @@ class Beko extends Unit {
         new AttackFunction(
             'body_blow',
             'たいあたり',
-            '1000',
+            1000,
         ),
         new AttackFunction(
             'fire',
             'ほのお',
-            '1400',
+            1400,
         )
     ];
 };
@@ -60,7 +60,7 @@ class Dragon extends Unit {
         new AttackFunction(
             'body_blow',
             'たいあたり',
-            '1000',
+            1000,
             [1],
             30,
             true,
@@ -68,7 +68,7 @@ class Dragon extends Unit {
         new AttackFunction(
             'fire',
             'ほのお',
-            '1400',
+            1400,
             [1, 3],
             -10,
             true,
@@ -92,12 +92,12 @@ class Centaur extends Unit {
         new AttackFunction(
             'body_blow',
             'たいあたり',
-            '1000',
+            1000,
         ),
         new AttackFunction(
             'hyper_aura_slash',
             'ハイパーオーラぎり',
-            '4100'
+            4100,
         ),
     ];
 };
@@ -118,7 +118,7 @@ class NewGundam extends Unit {
         new AttackFunction(
             'beam_saber',
             'ビームサーベル',
-            '1500',
+            1500,
             [1],
             20,
             true,
@@ -126,14 +126,14 @@ class NewGundam extends Unit {
         new AttackFunction(
             'beam_rifle',
             'ビームライフル',
-            '1600',
+            1600,
             [1, 5],
             -10,
         ),
         new AttackFunction(
             'fin_funnel',
             'フィン・ファンネル',
-            '5800',
+            4500,
             [1, 8],
             20,
         ),

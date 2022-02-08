@@ -88,9 +88,7 @@ body{
     position: relative;
     z-index: 30;
     top: -300px;
-    left: 250px;
-    margin: 10%;
-    margin-top: 0;
+    left: 260px;
 }
 
 .attack-function{

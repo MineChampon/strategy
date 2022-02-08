@@ -124,6 +124,9 @@ press_A = () => {
         };
     };
 
+    if (operation_mode == 'select_attack') {
+        console.log();
+    };
     operation_mode = __operation_mode;
 };
 
