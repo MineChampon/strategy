@@ -122,6 +122,7 @@ class NewGundam extends Unit {
             '1600',
             [1, 5],
             -10,
+            true,
         ),
         new AttackFunction(
             'fin_funnel',
