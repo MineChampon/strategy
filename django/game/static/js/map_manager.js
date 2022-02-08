@@ -140,9 +140,9 @@ $(function () {
     change_move_mode = (row, col) => {
         const move_range = get_unit(row, col).move;
         $('.square').filter((index, element) => {
-            // if ($(element).find('unit')) {
-            //     return false;
-            // };
+            if ($(element).find('.unit').length) {
+                return false;
+            };
             distance = Math.abs(parseInt(element.dataset.row) - row) + Math.abs(parseInt(element.dataset.col) - col);
             if (move_range >= distance) {
                 return true;
