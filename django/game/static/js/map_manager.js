@@ -86,6 +86,26 @@ const create_unit_html = (unit_code) => {
     return unit_html;
 };
 
+const create_attack_functions_window_html = (unit) => {
+    const window_start_tag = `<div class="attack-functions-window">`;
+    let attack_functions_html = '';
+    const window_end_tag = `</div>`;
+
+    let choice_attack_function = 'choice-attack-function';
+    for (const func of unit.attack_functions) {
+        attack_functions_html += `
+            <div class="aaa attack-function ${choice_attack_function} pt-2">
+                <p>${func.code}<p>
+                <p>${func.name}<p>
+                <p>${func.power}<p>
+            </div>
+        `;
+        choice_attack_function = '';
+    };
+
+    return window_start_tag + attack_functions_html + window_end_tag;
+};
+
 $(function () {
 
     get_square_dom = (row, col) => {
@@ -174,6 +194,17 @@ $(function () {
         // ユニットをセットする。
         set_unit_dom(
             set_unit(unit_object, ...after_position), ...after_position);
+    };
+
+    change_select_attack_functions_mode = (row, col) => {
+        square = get_square_dom(row, col);
+        unit = get_unit(row, col);
+        square.append($(create_attack_functions_window_html(unit)));
+
+    };
+
+    cancel_select_attack_functions_mode = () => {
+        $('.attack-functions-window').remove();
     };
 
     draw_map = () => {

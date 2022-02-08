@@ -108,3 +108,19 @@ body{
         opacity: 0.2;
     }
 }
+
+.attack-functions-window{
+    width: 150px;
+    height: 200px;
+    position: relative;
+    z-index: 30;
+    top: -300px;
+    left: 250px;
+    margin: 5%;
+}
+
+.attack-function{
+    background-color: #fefefe;
+    border: 2px solid;
+    text-align: center;
+}

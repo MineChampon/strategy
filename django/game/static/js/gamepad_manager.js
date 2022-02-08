@@ -72,7 +72,7 @@ press_A = () => {
         };
         if (choice_action.hasClass('attack')) {
             // モード変更
-            __operation_mode = 'select_attack_functions';
+            __operation_mode = 'select_attack';
             // 選択ユニットの座標保持
             choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
             choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
@@ -135,6 +135,10 @@ press_B = () => {
         // カーソルを元に戻す。参照渡し対策でparseInt
         map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
         map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
+        operation_mode = 'action';
+    };
+    if (operation_mode == 'select_attack') {
+        cancel_select_attack_functions_mode();
         operation_mode = 'action';
     };
 };
