@@ -113,16 +113,22 @@ class NewGundam extends Unit {
             'beam_saber',
             'ビームサーベル',
             '1500',
+            [1],
+            20,
         ),
         new AttackFunction(
             'beam_rifle',
             'ビームライフル',
-            '1600'
+            '1600',
+            [1, 5],
+            -10,
         ),
         new AttackFunction(
             'fin_funnel',
             'フィン・ファンネル',
-            '5800'
+            '5800',
+            [1, 8],
+            20,
         ),
     ];
 };

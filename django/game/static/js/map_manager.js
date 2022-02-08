@@ -97,8 +97,8 @@ const create_attack_functions_window_html = (unit) => {
             <div class="aaa attack-function ${choice_attack_function} pt-2">
                 <p>${func.name}</p>
                 <p>いりょく: ${func.power}</p>
-                <p>はんい: ${func.range}</p>
-                <p>クリティカル: ${func.critical}%</p>
+                <p>はんい: ${func.range.join('-')}</p>
+                <p>ほせい: ${func.critical}%</p>
             </div>
         `;
         choice_attack_function = '';

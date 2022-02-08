@@ -116,7 +116,8 @@ body{
     z-index: 30;
     top: -300px;
     left: 250px;
-    margin: 5%;
+    margin: 10%;
+    margin-top: 0;
 }
 
 .attack-function{
