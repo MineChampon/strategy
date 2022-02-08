@@ -71,7 +71,13 @@ press_A = () => {
             change_move_mode(...map_gamepad_focus);
         };
         if (choice_action.hasClass('attack')) {
-            console.log();
+            // モード変更
+            __operation_mode = 'select_attack_functions';
+            // 選択ユニットの座標保持
+            choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
+            choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
+            // 技選択モードに切り替える。
+            change_select_attack_functions_mode(...map_gamepad_focus);
         };
         if (choice_action.hasClass('status')) {
             console.log();
