@@ -94,7 +94,7 @@ const create_attack_functions_window_html = (unit) => {
     let choice_attack_function = 'choice-attack-function';
     for (const func of unit.attack_functions) {
         attack_functions_html += `
-            <div class="aaa attack-function ${choice_attack_function} pt-2">
+            <div class="attack-function ${choice_attack_function} pt-2" data-code="${func.code}">
                 <p>${func.name}</p>
                 <p>いりょく: ${func.power}</p>
                 <p>はんい: ${func.range.join('-')}</p>
@@ -130,6 +130,10 @@ $(function () {
 
     get_action_window_dom = () => {
         return $('.action-window');
+    };
+
+    get_attack_functions_window_dom = () => {
+        return $('.attack-functions-window');
     };
 
     add_action_window_dom = (focus_square_dom) => {
@@ -241,6 +245,42 @@ $(function () {
         $('.attack-functions-window').remove();
         $('.attack')
             .addClass('choice-action');
+    };
+
+    change_target_select_mode = (row, col) => {
+        const unit = get_unit(row, col);
+        const func_code = $('.choice-attack-function').attr('data-code');
+
+        let attack_func;
+        for (func of unit.attack_functions) {
+            if (func.code == func_code) {
+                attack_func = func;
+                break;
+            };
+        };
+
+        let attack_range_min = attack_func.range[0];
+        let attack_range_max = attack_range_min;
+        if (attack_func.range.length >= 2) {
+            console.log('ifブロックに入りました。');
+            attack_range_max = attack_func.range[1];
+        };
+
+        $('.square').filter((index, element) => {
+            const distance =
+                Math.abs(parseInt(element.dataset.row) - row) +
+                Math.abs(parseInt(element.dataset.col) - col);
+            if (attack_range_max >= distance && distance >= attack_range_min) {
+                // 味方 or 敵 判定必要
+                if ($(element).find('.unit').length) {
+                    $(element).addClass('attack-target');
+                };
+                return true;
+            };
+            return false;
+        }).addClass('attackable');
+        get_action_window_dom().addClass('d-none');
+        get_attack_functions_window_dom().addClass('d-none');
     };
 
     draw_map = () => {

@@ -125,7 +125,8 @@ press_A = () => {
     };
 
     if (operation_mode == 'select_attack') {
-        console.log();
+        change_target_select_mode(...map_gamepad_focus);
+        __operation_mode = 'target_select';
     };
     operation_mode = __operation_mode;
 };

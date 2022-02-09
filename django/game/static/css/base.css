@@ -118,7 +118,21 @@ body{
     animation: movable-flash 2s linear infinite;
 }
 
+.attackable{
+    animation: attackable-flash 2s linear infinite;
+}
+
 @keyframes movable-flash {
+    0%,100% {
+        opacity: 0.5;
+
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+@keyframes attackable-flash {
     0%,100% {
         opacity: 0.5;
 
