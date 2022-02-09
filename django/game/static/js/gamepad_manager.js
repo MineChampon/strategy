@@ -314,18 +314,6 @@ $(function () {
         frame_config['frame_map_focus'] = map_gamepad_focus;
         $('[data-map-focus="true"]').removeAttr('data-map-focus');
         get_square_dom(...map_gamepad_focus).attr('data-map-focus', 'true');
-        $('.all-unit-data').html('');
-        for (unit of get_all_unit()) {
-            $('.all-unit-data').append(
-                `
-                <div>
-                    <img class="unit-preview" src="static/image/${unit.code}.png">
-                    <p>${unit.name}</p>
-                    <p>${unit.hp}</p>
-                </div>
-                `
-            );
-        };
     };
 
     const main = (e) => {

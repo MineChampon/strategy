@@ -288,6 +288,21 @@ $(function () {
         get_attack_functions_window_dom().removeClass('d-none');
     };
 
+    draw_unit_status = () => {
+        $('.all-unit-data').html('');
+        for (unit of get_all_unit()) {
+            $('.all-unit-data').append(
+                `
+                <div>
+                    <img class="unit-preview" src="static/image/${unit.code}.png">
+                    <p>${unit.name}</p>
+                    <p>${unit.hp}</p>
+                </div>
+                `
+            );
+        };
+    };
+
     draw_map = () => {
         $('.map-set-container').html('');
         for (let [row_index, map_row] of map_over_all.entries()) {
@@ -316,4 +331,5 @@ $(function () {
             `<p>ユニットたち</p><div class="all-unit-data"></div>`);
     };
     draw_map();
+    draw_unit_status();
 });
