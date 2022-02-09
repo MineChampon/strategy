@@ -243,8 +243,7 @@ $(function () {
 
     cancel_select_attack_functions_mode = () => {
         $('.attack-functions-window').remove();
-        $('.attack')
-            .addClass('choice-action');
+        $('.attack').addClass('choice-action');
     };
 
     change_target_select_mode = (row, col) => {
