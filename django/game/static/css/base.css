@@ -33,8 +33,8 @@ body{
 .square{
     outline: 1px solid;
     outline-offset: -1px;
-    width: 95px;
-    height: 95px;
+    width: 5rem;
+    height: 5rem;
     float: left;
 }
 
@@ -140,4 +140,9 @@ body{
     50% {
         opacity: 0.2;
     }
+}
+
+.unit-preview{
+    width: 5rem;
+    float: right;
 }

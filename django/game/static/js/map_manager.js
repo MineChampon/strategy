@@ -312,6 +312,8 @@ $(function () {
                 $(this).attr('data-map-focus', 'true');
             };
         });
+        $('.unit-information').append(
+            `<p>ユニットたち</p><div class="all-unit-data"></div>`);
     };
     draw_map();
 });
