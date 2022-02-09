@@ -262,7 +262,6 @@ $(function () {
         let attack_range_min = attack_func.range[0];
         let attack_range_max = attack_range_min;
         if (attack_func.range.length >= 2) {
-            console.log('ifブロックに入りました。');
             attack_range_max = attack_func.range[1];
         };
 
@@ -281,6 +280,13 @@ $(function () {
         }).addClass('attackable');
         get_action_window_dom().addClass('d-none');
         get_attack_functions_window_dom().addClass('d-none');
+    };
+
+    cancel_target_select_mode = () => {
+        $('.attackable').removeClass('attackable');
+        $('.attack-target').removeClass('.attack-target');
+        get_action_window_dom().removeClass('d-none');
+        get_attack_functions_window_dom().removeClass('d-none');
     };
 
     draw_map = () => {

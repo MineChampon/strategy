@@ -128,6 +128,11 @@ press_A = () => {
         change_target_select_mode(...map_gamepad_focus);
         __operation_mode = 'target_select';
     };
+
+    if (operation_mode == 'target_select') {
+
+    };
+
     operation_mode = __operation_mode;
 };
 
@@ -160,6 +165,13 @@ press_B = () => {
     if (operation_mode == 'select_attack') {
         cancel_select_attack_functions_mode();
         operation_mode = 'action';
+    };
+
+    if (operation_mode == 'target_select') {
+        cancel_target_select_mode();
+        map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
+        map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
+        operation_mode = 'select_attack';
     };
 };
 
@@ -194,6 +206,12 @@ press_UP = () => {
     if (operation_mode == 'moved_action') {
         select_action_menu(-1);
     };
+
+    // 攻撃対象選択モード中の上キー押下なら
+    if (operation_mode == 'target_select') {
+        // 不安あり
+        map_gamepad_focus[0] -= 1;
+    };
 };
 
 press_DOWN = () => {
@@ -227,6 +245,12 @@ press_DOWN = () => {
     if (operation_mode == 'moved_action') {
         select_action_menu(1);
     };
+
+    // 攻撃対象選択モード中の下キー押下なら
+    if (operation_mode == 'target_select') {
+        // 不安あり
+        map_gamepad_focus[0] += 1;
+    };
 };
 
 press_LEFT = () => {
@@ -244,6 +268,12 @@ press_LEFT = () => {
         // 不安あり
         map_gamepad_focus[1] -= 1;
     };
+
+    // 攻撃対象選択モード中の右キー押下なら
+    if (operation_mode == 'target_select') {
+        // 不安あり
+        map_gamepad_focus[1] -= 1;
+    };
 };
 
 press_RIGHT = () => {
@@ -258,6 +288,12 @@ press_RIGHT = () => {
 
     // 移動モード中の右キー押下なら
     if (operation_mode == 'move') {
+        // 不安あり
+        map_gamepad_focus[1] += 1;
+    };
+
+    // 攻撃対象選択モード中の右キー押下なら
+    if (operation_mode == 'target_select') {
         // 不安あり
         map_gamepad_focus[1] += 1;
     };
