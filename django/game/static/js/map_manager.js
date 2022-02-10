@@ -268,6 +268,9 @@ $(function () {
             const distance =
                 Math.abs(parseInt(element.dataset.row) - row) +
                 Math.abs(parseInt(element.dataset.col) - col);
+            if (!distance) {
+                return false;
+            };
             if (attack_range_max >= distance && distance >= attack_range_min) {
                 // 味方 or 敵 判定必要
                 if ($(element).find('.unit').length) {
@@ -279,6 +282,7 @@ $(function () {
         }).addClass('attackable');
         get_action_window_dom().addClass('d-none');
         get_attack_functions_window_dom().addClass('d-none');
+        attack_function_code = func.code
     };
 
     cancel_target_select_mode = () => {
@@ -296,7 +300,7 @@ $(function () {
                 <div>
                     <img class="unit-preview" src="static/image/${unit.code}.png">
                     <p>${unit.name}</p>
-                    <p>${unit.hp}</p>
+                    <p>${unit.hp} / ${unit.max_hp}</p>
                 </div>
                 `
             );

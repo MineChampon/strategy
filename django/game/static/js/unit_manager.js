@@ -10,6 +10,7 @@ class Unit {
     ) {
         this.code = code;
         this.name = name;
+        this.max_hp = hp;
         this.hp = hp;
         this.attack = attack;
         this.defense = defense;

@@ -131,14 +131,15 @@ press_A = () => {
 
     if (operation_mode == 'target_select') {
         // TODO: 敵味方判定
-        // ユニットがいたら
-        attack_unit = get_unit(...map_gamepad_focus)
-        if (attack_unit) {
-            // アニメーションやるなら同期処理必要か？
-            // 攻撃処理呼び出し
-            // 攻撃するユニットと攻撃されるユニット
-            // 攻撃技コードを渡す
-            console.log('ユニットいるマスだよ');
+        if (get_square_dom(...map_gamepad_focus).hasClass('attack-target')) {
+            // ユニットがいたら
+            attack_unit = get_unit(...choice_unit_position);
+            defense_unit = get_unit(...map_gamepad_focus);
+            if (attack_unit && defense_unit) {
+                console.log(attack_function_code);
+                // (async () => {
+                // })();
+            };
         };
     };
 
