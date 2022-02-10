@@ -52,7 +52,6 @@ calc_is_critical = (attack_unit, defense_unit, func_critical) => {
     critical_rate = Math.round(
         (20 * (attack_unit.speed / (defense_unit.speed + defense_unit.defense))) *
         (func_critical + 100) / 100);
-    console.log(critical_rate);
     return (critical_rate >= random_number(100));
 };
 
@@ -62,23 +61,18 @@ calc_damage = (attack_unit, defense_unit, attack_function) => {
         defense_unit,
         attack_function.critical)
 
-    let critica_scale = 1;
+    let critical_scale = 1;
     if (is_critical) {
-        critica_scale = 1.5
+        critical_scale = 1.5
     };
     const damage_width_rate = (95 + random_number(11)) / 100
-    // return [
-    //     attack_function.power *
-    //     (attack_unit.attack / defense_unit.defense) *
-    //     critica_scale *
-    //     damage_width_rate,
-    //     is_critical
-    // ];
+
     return [
-        attack_unit.attack *
-        (attack_function.power / defense_unit.defense) *
-        critica_scale *
-        damage_width_rate,
+        Math.round(
+            attack_function.power *
+            (attack_unit.attack / defense_unit.defense) *
+            critical_scale *
+            damage_width_rate),
         is_critical
     ];
 };
@@ -91,7 +85,23 @@ exec_attack_process = (attack_unit, defense_unit, attack_function) => {
         const damage = calc_damage_result[0];
         const is_critical = calc_damage_result[1];
         console.log('ダメージ:', damage, is_critical);
+        defense_unit.hp -= Math.min(damage, defense_unit.hp);
     } else {
         console.log('no hit');
     };
+    draw_unit_status();
+};
+
+is_down = (unit) => {
+    if (!unit.hp) {
+        return true;
+    };
+    return false;
+};
+
+exec_end_attack_process = (defense_unit, map_gamepad_focus) => {
+    if (is_down(defense_unit)) {
+        remove_unit_dom(...map_gamepad_focus);
+    };
+    end_attack_process();
 };

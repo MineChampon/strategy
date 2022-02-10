@@ -137,13 +137,17 @@ press_A = () => {
             defense_unit = get_unit(...map_gamepad_focus);
             if (attack_unit && defense_unit) {
                 console.log(attack_function);
-                (async () => {
-                    exec_attack_process(
-                        attack_unit = attack_unit,
-                        defense_unit = defense_unit,
-                        attack_function = attack_function,
-                    );
-                })();
+                exec_attack_process(
+                    attack_unit = attack_unit,
+                    defense_unit = defense_unit,
+                    attack_function = attack_function);
+
+                exec_end_attack_process(
+                    defense_unit, map_gamepad_focus);
+
+                map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
+                map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
+                __operation_mode = 'map';
             };
         };
     };

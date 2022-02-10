@@ -118,6 +118,10 @@ $(function () {
         return get_square_dom(row, col).children();
     };
 
+    remove_unit_dom = (row, col) => {
+        return get_square_dom(row, col).children().remove();
+    };
+
     set_unit_dom = (unit_object, row, col) => {
         return get_square_dom(row, col).html(
             create_unit_html(unit_object.code));
@@ -146,6 +150,10 @@ $(function () {
 
     remove_action_window_dom = () => {
         $('.action-window').remove();
+    };
+
+    remove_attack_functions_window_dom = () => {
+        $('.attack-functions-window').remove();
     };
 
     select_action_menu = (direction) => {
@@ -285,6 +293,13 @@ $(function () {
         $('.attack-target').removeClass('attack-target');
         get_action_window_dom().removeClass('d-none');
         get_attack_functions_window_dom().removeClass('d-none');
+    };
+
+    end_attack_process = () => {
+        $('.attackable').removeClass('attackable');
+        $('.attack-target').removeClass('attack-target');
+        remove_action_window_dom();
+        remove_attack_functions_window_dom();
     };
 
     draw_unit_status = () => {
