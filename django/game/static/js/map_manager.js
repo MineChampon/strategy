@@ -250,13 +250,7 @@ $(function () {
         const unit = get_unit(row, col);
         const func_code = $('.choice-attack-function').attr('data-code');
 
-        let attack_func;
-        for (func of unit.attack_functions) {
-            if (func.code == func_code) {
-                attack_func = func;
-                break;
-            };
-        };
+        let attack_func = get_attack_function(unit, func_code);
 
         let attack_range_min = attack_func.range[0];
         let attack_range_max = attack_range_min;
@@ -273,6 +267,7 @@ $(function () {
             };
             if (attack_range_max >= distance && distance >= attack_range_min) {
                 // 味方 or 敵 判定必要
+                console.log(attack_range_max, distance, attack_range_min);
                 if ($(element).find('.unit').length) {
                     $(element).addClass('attack-target');
                 };
@@ -282,12 +277,12 @@ $(function () {
         }).addClass('attackable');
         get_action_window_dom().addClass('d-none');
         get_attack_functions_window_dom().addClass('d-none');
-        attack_function_code = func.code
+        attack_function = attack_func;
     };
 
     cancel_target_select_mode = () => {
         $('.attackable').removeClass('attackable');
-        $('.attack-target').removeClass('.attack-target');
+        $('.attack-target').removeClass('attack-target');
         get_action_window_dom().removeClass('d-none');
         get_attack_functions_window_dom().removeClass('d-none');
     };
