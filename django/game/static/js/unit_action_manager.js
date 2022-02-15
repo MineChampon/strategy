@@ -44,7 +44,7 @@ random_number = (range = 100) => {
     return Math.floor(Math.random() * range);
 };
 
-is_hit = (hit_rate) => {
+calc_is_hit = (hit_rate) => {
     return (hit_rate >= random_number(100));
 };
 
@@ -80,16 +80,22 @@ calc_damage = (attack_unit, defense_unit, attack_function) => {
 
 exec_attack_process = (attack_unit, defense_unit, attack_function) => {
     const hit_rate = calc_hit_rate(attack_unit, defense_unit, attack_function);
-    if (is_hit(hit_rate)) {
+    let damage = 0;
+    let is_critical = false;
+    let is_hit = calc_is_hit(hit_rate);
+    let before_defense_unit_hp = parseInt(defense_unit.hp);
+    if (is_hit) {
         calc_damage_result = calc_damage(attack_unit, defense_unit, attack_function);
-        const damage = calc_damage_result[0];
-        const is_critical = calc_damage_result[1];
+        damage = calc_damage_result[0];
+        is_critical = calc_damage_result[1];
         console.log('ダメージ:', damage, is_critical);
         defense_unit.hp -= Math.min(damage, defense_unit.hp);
     } else {
         console.log('no hit');
     };
-    draw_unit_status();
+    unit_attack_animate(
+        attack_unit, defense_unit, attack_function,
+        before_defense_unit_hp, damage, is_critical, is_hit);
 };
 
 is_down = (unit) => {
@@ -103,5 +109,6 @@ exec_end_attack_process = (defense_unit, map_gamepad_focus) => {
     if (is_down(defense_unit)) {
         remove_unit_dom(...map_gamepad_focus);
     };
+    draw_unit_status();
     end_attack_process();
 };
