@@ -13,11 +13,11 @@ services:
     restart: always
   django:
     build: ./django
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0.0.0.0:8888
     volumes:
       - ./django:/code
     ports:
-      - "8000:8000"
+      - "8888:8888"
     depends_on:
       - postgres
     restart: always
