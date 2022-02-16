@@ -149,6 +149,12 @@ $(function () {
                     .animate({
                         rotate: '-135deg',
                     }, 300)
+                    .animate({
+                        marginTop: '-=1rem',
+                    }, 15)
+                    .animate({
+                        marginTop: '+=1rem',
+                    }, 15)
                     .promise()
                     .then(() => {
                         funnel_hit
@@ -217,8 +223,11 @@ $(function () {
                         marginLeft: `-=${after_left_position}`,
                     }, 800)
                     .animate({
-                        marginLeft: '+=2rem',
-                    }, 50)
+                        marginTop: '+=1rem',
+                    }, 15)
+                    .animate({
+                        marginTop: '-=1rem',
+                    }, 15)
                     .promise()
                     .then(() => {
                         funnel_hit
@@ -295,54 +304,65 @@ $(function () {
                     .animate({
                         rotate: '20deg',
                     }, 300)
-                    .promise();
-                funnel_hit
-                    .css('opacity', '0')
-                    .removeClass('d-none')
                     .animate({
-                        opacity: '1',
-                    }, 50)
+                        marginTop: '-=1rem',
+                    }, 15)
                     .animate({
-                        marginLeft: '+=1rem',
-                    }, 70)
-                    .animate({
-                        marginLeft: '-=1rem',
-                    }, 70)
-                    .animate({
-                        marginLeft: '+=1rem',
-                    }, 70)
-                    .animate({
-                        marginLeft: '-=1rem',
-                    }, 70)
-                    .animate({
-                        opacity: '0',
-                    }, 50);
-                await def
-                    .animate({
-                        opacity: '0.5',
-                        marginLeft: '-=1rem',
-                    }, 50)
-                    .animate({
-                        opacity: '1',
-                        marginLeft: '+=1rem',
-                    }, 50)
-                    .animate({
-                        opacity: '0.5',
-                        marginLeft: '-=1rem',
-                    }, 50)
-                    .animate({
-                        opacity: '1',
-                        marginLeft: '+=1rem',
-                    }, 50)
-                    .animate({
-                        opacity: '0.5',
-                        marginLeft: '-=1rem',
-                    }, 50)
-                    .animate({
-                        opacity: '1',
-                        marginLeft: '+=1rem',
-                    }, 50)
-                render_defense_unit_hp(Math.ceil(damage / 3));
+                        marginTop: '+=1rem',
+                    }, 15)
+                    .promise()
+                    .then(() => {
+                        funnel_hit
+                            .css('opacity', '0')
+                            .removeClass('d-none')
+                            .animate({
+                                opacity: '1',
+                            }, 50)
+                            .animate({
+                                marginLeft: '+=1rem',
+                            }, 70)
+                            .animate({
+                                marginLeft: '-=1rem',
+                            }, 70)
+                            .animate({
+                                marginLeft: '+=1rem',
+                            }, 70)
+                            .animate({
+                                marginLeft: '-=1rem',
+                            }, 70)
+                            .animate({
+                                opacity: '0',
+                            }, 50);
+                        def
+                            .animate({
+                                opacity: '0.5',
+                                marginLeft: '-=1rem',
+                            }, 50)
+                            .animate({
+                                opacity: '1',
+                                marginLeft: '+=1rem',
+                            }, 50)
+                            .animate({
+                                opacity: '0.5',
+                                marginLeft: '-=1rem',
+                            }, 50)
+                            .animate({
+                                opacity: '1',
+                                marginLeft: '+=1rem',
+                            }, 50)
+                            .animate({
+                                opacity: '0.5',
+                                marginLeft: '-=1rem',
+                            }, 50)
+                            .animate({
+                                opacity: '1',
+                                marginLeft: '+=1rem',
+                            }, 50);
+                        return new Promise(async (resolve, reject) => {
+                            await render_defense_unit_hp(Math.ceil(damage / 3));
+                            resolve();
+                        });
+                    });
                 return new Promise(async (resolve, reject) => {
                     await $(__funnel).animate({
                         marginTop: '-40rem',
