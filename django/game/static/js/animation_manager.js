@@ -57,6 +57,10 @@ $(function () {
         return attack_animation_modal_html;
     };
 
+    remove_animation_modal = () => {
+        $('#modal-attack-animation').modal('hide').remove();
+    };
+
     unit_attack_animate = (
         attack_unit, defense_unit, attack_function,
         before_defense_unit_hp, damage, is_critical, is_hit) => {
@@ -65,7 +69,7 @@ $(function () {
                 attack_unit, defense_unit, attack_function,
                 before_defense_unit_hp, damage, is_critical, is_hit)
         );
-        (async () => {
+        return (async () => {
             // 入力を受け付けない
             await not_accept_entry();
             $('.defense-unit-image')
@@ -81,9 +85,16 @@ $(function () {
                 marginLeft: '60em'
             }, 2000).promise();
 
-            attack_animate[attack_function.code](damage, is_critical, is_hit);
+            await attack_animate[attack_function.code](damage, is_critical, is_hit);
+            await new Promise(async (resolve, reject) => {
+                setTimeout(resolve, 1000);
+            });
+            await remove_animation_modal();
             // 入力OK
             await accept_entry();
+            return new Promise(async (resolve, reject) => {
+                resolve();
+            });
         })();
     };
 });

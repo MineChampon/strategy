@@ -140,13 +140,8 @@ press_A = () => {
                 exec_attack_process(
                     attack_unit = attack_unit,
                     defense_unit = defense_unit,
-                    attack_function = attack_function);
-
-                exec_end_attack_process(
-                    defense_unit, map_gamepad_focus);
-
-                map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
-                map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
+                    attack_function = attack_function,
+                    map_gamepad_focus = map_gamepad_focus);
                 __operation_mode = 'map';
             };
         };

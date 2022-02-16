@@ -77,8 +77,22 @@ calc_damage = (attack_unit, defense_unit, attack_function) => {
     ];
 };
 
+is_down = (unit) => {
+    if (!unit.hp) {
+        return true;
+    };
+    return false;
+};
 
-exec_attack_process = (attack_unit, defense_unit, attack_function) => {
+exec_end_attack_process = (defense_unit, map_gamepad_focus) => {
+    if (is_down(defense_unit)) {
+        remove_unit_dom(...map_gamepad_focus);
+    };
+    draw_unit_status();
+    end_attack_process();
+};
+
+exec_attack_process = (attack_unit, defense_unit, attack_function, map_gamepad_focus) => {
     const hit_rate = calc_hit_rate(attack_unit, defense_unit, attack_function);
     let damage = 0;
     let is_critical = false;
@@ -93,22 +107,10 @@ exec_attack_process = (attack_unit, defense_unit, attack_function) => {
     } else {
         console.log('no hit');
     };
-    unit_attack_animate(
-        attack_unit, defense_unit, attack_function,
-        before_defense_unit_hp, damage, is_critical, is_hit);
-};
-
-is_down = (unit) => {
-    if (!unit.hp) {
-        return true;
-    };
-    return false;
-};
-
-exec_end_attack_process = (defense_unit, map_gamepad_focus) => {
-    if (is_down(defense_unit)) {
-        remove_unit_dom(...map_gamepad_focus);
-    };
-    draw_unit_status();
-    end_attack_process();
+    (async () => {
+        await unit_attack_animate(
+            attack_unit, defense_unit, attack_function,
+            before_defense_unit_hp, damage, is_critical, is_hit);
+        exec_end_attack_process(defense_unit, map_gamepad_focus);
+    })();
 };
