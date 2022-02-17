@@ -145,7 +145,7 @@ $(function () {
                     }, 800)
                     .animate({
                         marginLeft: `-${after_left_position}`,
-                    }, 1200)
+                    }, 800)
                     .animate({
                         rotate: '-135deg',
                     }, 300)
@@ -297,7 +297,7 @@ $(function () {
                     }, 500)
                     .animate({
                         marginLeft: `+=2rem`,
-                    }, 1000)
+                    }, 600)
                     .animate({
                         marginLeft: `-${after_left_position}`,
                     }, 600)
