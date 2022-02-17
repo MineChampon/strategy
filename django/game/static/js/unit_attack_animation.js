@@ -1,10 +1,24 @@
 $(function () {
     attack_animate = [];
-    render_defense_unit_hp = (damage) => {
+    render_defense_unit_hp = (damage, display_damage_text = true) => {
         defense_unit_hp_dom = $('.defense-unit-hit-point');
         const before_defense_unit_hp = defense_unit_hp_dom.text();
         const after_defense_unit_hp = Math.max(before_defense_unit_hp - damage, 0);
         defense_unit_hp_dom.html(after_defense_unit_hp);
+        if (display_damage_text) {
+            const def = $('.defense-unit-image');
+            const def_off = def.offset();
+            const damage_dom = $('.display_damage_text');
+            damage_dom_top = def_off.top;
+            damage_dom
+                .css('top', '14em')
+                .css('left', '6.7em')
+                .removeClass('d-none')
+                .animate({
+                    opacity: '1',
+                    top: '13em'
+                }, 400);
+        };
     };
     attack_animate.body_blow = (damage, is_critical, is_hit) => {
         return (async () => {
@@ -14,7 +28,7 @@ $(function () {
                 }, 150)
             await $('.attack-unit-image')
                 .animate({
-                    marginLeft: '30em'
+                    marginLeft: '35em'
                 }, 600).promise();
             $('.attack-unit-image')
                 .animate({
@@ -209,7 +223,7 @@ $(function () {
                                     marginLeft: '-100rem',
                                 }, 1000);
                             });
-                        render_defense_unit_hp(Math.ceil(damage / 3));
+                        render_defense_unit_hp(Math.ceil(damage / 3), false);
                     });
             };
             // 正面スタート
@@ -282,7 +296,7 @@ $(function () {
                                     marginLeft: '-100rem',
                                 }, 1000);
                             });
-                        render_defense_unit_hp(Math.ceil(damage / 3));
+                        render_defense_unit_hp(Math.ceil(damage / 3), false);
                     });
             };
             // 下
@@ -367,7 +381,7 @@ $(function () {
                     await $(__funnel).animate({
                         marginTop: '-40rem',
                         marginLeft: '-180rem',
-                    }, 1000).promise();
+                    }, 600).promise();
                     resolve();
                 });
             };

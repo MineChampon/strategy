@@ -86,19 +86,27 @@ const create_unit_html = (unit_code) => {
     return unit_html;
 };
 
-const create_attack_functions_window_html = (unit) => {
+const create_attack_functions_window_html = (unit, moved = false) => {
     const window_start_tag = `<div class="attack-functions-window">`;
     let attack_functions_html = '';
     const window_end_tag = `</div>`;
 
     let choice_attack_function = 'choice-attack-function';
     for (const func of unit.attack_functions) {
+        let moved_text = 'つかえる';
+        if (!func.moved) {
+            moved_text = 'つかえない'
+            if (moved) {
+                continue;
+            };
+        };
         attack_functions_html += `
             <div class="attack-function ${choice_attack_function} pt-2" data-code="${func.code}">
                 <p>${func.name}</p>
                 <p>いりょく: ${func.power}</p>
                 <p>はんい: ${func.range.join('-')}</p>
                 <p>ほせい: ${func.critical}%</p>
+                <p>いどうご: ${moved_text}</p>
             </div>
         `;
         choice_attack_function = '';
@@ -241,10 +249,10 @@ $(function () {
             set_unit(unit_object, ...before_unit_position), ...before_unit_position);
     };
 
-    change_select_attack_functions_mode = (row, col) => {
+    change_select_attack_functions_mode = (row, col, moved = false) => {
         square = get_square_dom(row, col);
         unit = get_unit(row, col);
-        square.append($(create_attack_functions_window_html(unit)));
+        square.append($(create_attack_functions_window_html(unit, moved)));
         window_focus_change(
             remove_class = 'choice-action');
     };
@@ -252,6 +260,7 @@ $(function () {
     cancel_select_attack_functions_mode = () => {
         $('.attack-functions-window').remove();
         $('.attack').addClass('choice-action');
+        $('.moved_attack').addClass('choice-action');
     };
 
     change_target_select_mode = (row, col) => {

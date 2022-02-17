@@ -11,10 +11,10 @@ $(function () {
     };
     const attack_animation_modal = (
         attack_unit, defense_unit, attack_function,
-        before_defense_unit_hp, damage, is_critical, is_hit) => {
+        before_defense_unit_hp, damage, is_critical, is_hit, critical_rate, hit_rate) => {
         let critical_display_text = '';
         if (is_critical) {
-            critical_display_text = 'クリティカル!: ';
+            critical_display_text = 'クリティカル!<br>';
         };
         const attack_animation_modal_html = `
             <div class="modal fade" id="modal-attack-animation">
@@ -36,6 +36,10 @@ $(function () {
                                             src="static/image/${defense_unit.code}.png">
                                         <img class="attack-unit-image d-none"
                                             src="static/image/${attack_unit.code}.png">
+                                        <div class="display_damage_text d-none">
+                                            ${critical_display_text}
+                                            <span>${damage}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row h-25 unit-text-window-container">
@@ -45,7 +49,7 @@ $(function () {
                                     </div> 
                                     <div class="unit-text-container w-auto h-100">
                                         <div class="unit-name-area">${attack_unit.name}</div>
-                                        <div class="unit-text-area">「 デバッグ -> ${attack_function.name} 」</div>
+                                        <div class="unit-text-area">「 デバッグ -> ${attack_function.name} <br> めいちゅうりつ: ${hit_rate}% クリティカルりつ: ${critical_rate}% 」</div>
                                     </div>
                                 </div>
                             </div>
@@ -63,11 +67,13 @@ $(function () {
 
     unit_attack_animate = (
         attack_unit, defense_unit, attack_function,
-        before_defense_unit_hp, damage, is_critical, is_hit) => {
+        before_defense_unit_hp, damage,
+        is_critical, is_hit, critical_rate, hit_rate) => {
         $('.map-container').append(
             attack_animation_modal(
                 attack_unit, defense_unit, attack_function,
-                before_defense_unit_hp, damage, is_critical, is_hit)
+                before_defense_unit_hp, damage,
+                is_critical, is_hit, critical_rate, hit_rate)
         );
         return (async () => {
             // 入力を受け付けない

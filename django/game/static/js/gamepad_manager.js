@@ -1,14 +1,21 @@
 const CROSS_KEY_UP_DOWN = 5;
 const CROSS_KEY_LEFT_RIGHT = 4;
 
+// コントローラー対応
 const BUTTON_A = 1;
 const BUTTON_B = 0;
+
+const BUTTON_L = 4;
+const BUTTON_R = 5;
+let unit_select_index = 0;
 
 // 全国津々浦々のフラグ類
 let cross_key_up_down_pressed = false;
 let cross_key_left_right_pressed = false;
 let button_a_pressed = false;
 let button_b_pressed = false;
+let button_l_pressed = false;
+let button_r_pressed = false;
 
 let map_gamepad_focus = [5, 5]
 
@@ -119,8 +126,15 @@ press_A = () => {
             __operation_mode = 'map';
         };
 
+        // 移動後こうげき
         if (choice_action.hasClass('moved_attack')) {
-            console.log();
+            // モード変更
+            __operation_mode = 'moved_select_attack';
+            // 選択ユニットの座標保持
+            choice_unit_position[0] = parseInt(map_gamepad_focus[0]);
+            choice_unit_position[1] = parseInt(map_gamepad_focus[1]);
+            // 技選択モードに切り替える。
+            change_select_attack_functions_mode(...map_gamepad_focus, moved = true);
         };
     };
 
@@ -129,7 +143,12 @@ press_A = () => {
         __operation_mode = 'target_select';
     };
 
-    if (operation_mode == 'target_select') {
+    if (operation_mode == 'moved_select_attack') {
+        change_target_select_mode(...map_gamepad_focus);
+        __operation_mode = 'moved_target_select';
+    };
+
+    if (operation_mode.match(/target_select/)) {
         // TODO: 敵味方判定
         if (get_square_dom(...map_gamepad_focus).hasClass('attack-target')) {
             // ユニットがいたら
@@ -181,11 +200,94 @@ press_B = () => {
         operation_mode = 'action';
     };
 
+    if (operation_mode == 'moved_select_attack') {
+        cancel_select_attack_functions_mode();
+        operation_mode = 'moved_action';
+    };
+
     if (operation_mode == 'target_select') {
         cancel_target_select_mode();
         map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
         map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
         operation_mode = 'select_attack';
+    };
+
+    if (operation_mode == 'moved_target_select') {
+        cancel_target_select_mode();
+        map_gamepad_focus[0] = parseInt(choice_unit_position[0]);
+        map_gamepad_focus[1] = parseInt(choice_unit_position[1]);
+        operation_mode = 'moved_select_attack';
+    };
+
+};
+
+press_L = () => {
+    console.log('Lボタン押下');
+    button_l_pressed = true;
+
+    // マップ上でのLキー押下なら
+    if (operation_mode == 'map') {
+        const units = get_all_unit();
+        if (get_unit(...map_gamepad_focus)) {
+            if (unit_select_index == 0) {
+                unit_select_index = units.length - 1;
+            } else {
+                unit_select_index -= 1;
+            };
+        };
+        const unit = units[unit_select_index];
+        map_gamepad_focus[0] = unit.row;
+        map_gamepad_focus[1] = unit.col;
+    };
+
+    // 攻撃対象選択モード中のLキー押下なら
+    if (operation_mode.match(/target_select/)) {
+        const units = get_all_unit();
+        if (get_unit(...map_gamepad_focus)) {
+            if (unit_select_index == 0) {
+                unit_select_index = units.length - 1;
+            } else {
+                unit_select_index -= 1;
+            };
+        };
+        const unit = units[unit_select_index];
+        map_gamepad_focus[0] = unit.row;
+        map_gamepad_focus[1] = unit.col;
+    };
+};
+
+press_R = () => {
+    console.log('Rボタン押下');
+    button_r_pressed = true;
+
+    // マップ上での上キー押下なら
+    if (operation_mode == 'map') {
+        const units = get_all_unit();
+        if (get_unit(...map_gamepad_focus)) {
+            if (unit_select_index == units.length - 1) {
+                unit_select_index = 0;
+            } else {
+                unit_select_index += 1;
+            };
+        };
+        const unit = units[unit_select_index];
+        map_gamepad_focus[0] = unit.row;
+        map_gamepad_focus[1] = unit.col;
+    };
+
+    // 攻撃対象選択モード中のRキー押下なら
+    if (operation_mode.match(/target_select/)) {
+        const units = get_all_unit();
+        if (get_unit(...map_gamepad_focus)) {
+            if (unit_select_index == units.length - 1) {
+                unit_select_index = 0;
+            } else {
+                unit_select_index += 1;
+            };
+        };
+        const unit = units[unit_select_index];
+        map_gamepad_focus[0] = unit.row;
+        map_gamepad_focus[1] = unit.col;
     };
 };
 
@@ -222,7 +324,7 @@ press_UP = () => {
     };
 
     // 攻撃対象選択モード中の上キー押下なら
-    if (operation_mode == 'target_select') {
+    if (operation_mode.match(/target_select/)) {
         // 不安あり
         map_gamepad_focus[0] -= 1;
     };
@@ -261,7 +363,7 @@ press_DOWN = () => {
     };
 
     // 攻撃対象選択モード中の下キー押下なら
-    if (operation_mode == 'target_select') {
+    if (operation_mode.match(/target_select/)) {
         // 不安あり
         map_gamepad_focus[0] += 1;
     };
@@ -283,8 +385,8 @@ press_LEFT = () => {
         map_gamepad_focus[1] -= 1;
     };
 
-    // 攻撃対象選択モード中の右キー押下なら
-    if (operation_mode == 'target_select') {
+    // 攻撃対象選択モード中の左キー押下なら
+    if (operation_mode.match(/target_select/)) {
         // 不安あり
         map_gamepad_focus[1] -= 1;
     };
@@ -307,7 +409,7 @@ press_RIGHT = () => {
     };
 
     // 攻撃対象選択モード中の右キー押下なら
-    if (operation_mode == 'target_select') {
+    if (operation_mode.match(/target_select/)) {
         // 不安あり
         map_gamepad_focus[1] += 1;
     };
@@ -337,6 +439,18 @@ $(function () {
             button_b_pressed = false;
         } else if (!(button_b_pressed)) {
             press_B();
+        };
+
+        if (!(gamepad.buttons[BUTTON_L].pressed)) {
+            button_l_pressed = false;
+        } else if (!(button_l_pressed)) {
+            press_L();
+        };
+
+        if (!(gamepad.buttons[BUTTON_R].pressed)) {
+            button_r_pressed = false;
+        } else if (!(button_r_pressed)) {
+            press_R();
         };
 
         if (gamepad.axes[CROSS_KEY_UP_DOWN] == 0) {

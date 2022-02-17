@@ -94,11 +94,16 @@ class Centaur extends Unit {
             'body_blow',
             'たいあたり',
             1000,
+            [1],
+            30,
+            true,
         ),
         new AttackFunction(
-            'hyper_aura_slash',
-            'ハイパーオーラぎり',
-            4100,
+            'fin_funnel',
+            'フィン・ファンネル',
+            4500,
+            [1, 8],
+            20,
         ),
     ];
 };
