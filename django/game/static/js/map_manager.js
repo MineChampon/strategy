@@ -101,7 +101,7 @@ const create_attack_functions_window_html = (unit, moved = false) => {
             };
         };
         attack_functions_html += `
-            <div class="attack-function ${choice_attack_function} pt-2" data-code="${func.code}">
+            <div class="attack-function ${choice_attack_function}" data-code="${func.code}">
                 <p>${func.name}</p>
                 <p>いりょく: ${func.power}</p>
                 <p>はんい: ${func.range.join('-')}</p>
@@ -312,15 +312,14 @@ $(function () {
     };
 
     draw_unit_status = () => {
-        $('.all-unit-data').html('');
+        $('.units_status').html('');
         for (unit of get_all_unit()) {
-            $('.all-unit-data').append(
+            console.log(unit.has_unit);
+            $(`.${unit.has_unit}-units`).append(
                 `
-                <div>
                     <img class="unit-preview" src="static/image/${unit.code}.png">
                     <p>${unit.name}</p>
                     <p>${unit.hp} / ${unit.max_hp}</p>
-                </div>
                 `
             );
         };
@@ -350,8 +349,6 @@ $(function () {
                 $(this).attr('data-map-focus', 'true');
             };
         });
-        $('.unit-information').append(
-            `<p>ユニットたち</p><div class="all-unit-data"></div>`);
     };
     draw_map();
     draw_unit_status();

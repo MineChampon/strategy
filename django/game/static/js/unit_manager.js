@@ -7,6 +7,7 @@ class Unit {
         defense,
         speed,
         move,
+        has_unit,
     ) {
         this.code = code;
         this.name = name;
@@ -16,11 +17,12 @@ class Unit {
         this.defense = defense;
         this.speed = speed;
         this.move = move;
+        this.has_unit = has_unit;
     };
 };
 
 class Beko extends Unit {
-    constructor() {
+    constructor(has_unit = 'enemy') {
         super(
             'akabeko',
             '赤べこ',
@@ -29,6 +31,7 @@ class Beko extends Unit {
             1000,
             500,
             3,
+            has_unit,
         );
     };
     attack_functions = [
@@ -46,7 +49,7 @@ class Beko extends Unit {
 };
 
 class Dragon extends Unit {
-    constructor() {
+    constructor(has_unit = 'enemy') {
         super(
             'dragon',
             'ドラゴンべコ',
@@ -55,6 +58,7 @@ class Dragon extends Unit {
             1000,
             500,
             3,
+            has_unit,
         );
     };
     attack_functions = [
@@ -78,7 +82,7 @@ class Dragon extends Unit {
 };
 
 class Centaur extends Unit {
-    constructor() {
+    constructor(has_unit = 'enemy') {
         super(
             'centaur',
             'ケンタウベコ',
@@ -87,6 +91,7 @@ class Centaur extends Unit {
             800,
             800,
             4,
+            has_unit,
         );
     };
     attack_functions = [
@@ -109,7 +114,7 @@ class Centaur extends Unit {
 };
 
 class NewGundam extends Unit {
-    constructor() {
+    constructor(has_unit = 'enemy') {
         super(
             'ν_gundam',
             'νガンダム',
@@ -118,6 +123,7 @@ class NewGundam extends Unit {
             500,
             2500,
             7,
+            has_unit,
         );
     };
     attack_functions = [

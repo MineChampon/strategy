@@ -33,21 +33,15 @@
     <script type="text/javascript" src="{% static 'js/gamepad_manager.js' %}"></script>
   </head>
   <body>
-    <div class="container-fluid w-100 h-100 px-5 py-5">
-        <div class="w-100 h-100">
-            <div class="row h-100">
-                <div class="col-1 bg-light h-100">
-                </div>
-                <div class="center-container col-10 h-100">
-                    <div class="map-container row w-100 h-100">
-                        <div class="map-set-container col-9 p-1 pt-3">
-                        </div>
-                        <div class="unit-information col-3">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-1 bg-light h-100">
-                </div>
+    <div class="container-fluid w-100 h-100">
+        <div class="map-container w-100 h-100">
+            <div class="map-set-container">
+            </div>
+            <div class="player-unit-information unit-information">
+              <p class="units-title">みかたユニット</p><div class="player-units units_status"></div>
+            </div>
+            <div class="enemy-unit-information unit-information">
+              <p class="units-title">てきユニット</p><div class="enemy-units units_status"></div>
             </div>
         </div>
     </div>

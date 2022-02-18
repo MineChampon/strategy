@@ -12,31 +12,38 @@ body{
     font-size: 1em;
 }
 
-.center-container{
-    background-color: #eeeeee;
+.container-fluid{
+    margin: 0;
+    padding: 0;
 }
 
 .map-container{
     margin: 0;
+    padding: 0;
 }
 
 .map-set-container{
-    width: 1000px;
-    height: 100%;
+    width: 100vmax;
+    height: 100vmin;
+    padding: 0;
+    /* transform: perspective(100vmin) rotateX(30deg);   
+    transform-origin: bottom; */
 }
 
 .map-row{
     width: 100%;
     margin: 0;
     clear:both; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .square{
     outline: 1px solid;
     outline-offset: -1px;
-    width: 5rem;
-    height: 5rem;
-    float: left;
+    width: 10vmin;;
+    height: 10vmin;
 }
 
 .square[data-map-focus="true"]{
@@ -65,17 +72,15 @@ body{
 }
 
 .action-window{
-    width: 150px;
-    height: 200px;
+    width: 12vmin;
+    height: 8vmin;
     position: relative;
     z-index: 20;
-    top: -100px;
-    left: 100px;
 }
 
 .action-menu{
     background-color: #fefefe;
-    border: 2px solid;
+    border: 0.1vmin solid;
     text-align: center;
 }
 
@@ -84,12 +89,9 @@ body{
 }
 
 .attack-functions-window{
-    width: 250px;
-    height: 200px;
+    width: 20vmin;
     position: relative;
     z-index: 30;
-    top: -300px;
-    left: 260px;
 }
 
 .attack-function{
@@ -240,6 +242,7 @@ body{
         '/static/image/ground-background.png') repeat-x;
         background-size: 100%;
 	animation: scroll-anim 6s linear infinite;
+    font-size: 1em !important;
 }
 
 @keyframes scroll-anim {
@@ -273,4 +276,25 @@ body{
            0px 1px 0px #000,  0px -1px 0px #000;
     z-index: 100;
     opacity: 0;
+}
+
+.unit-information{
+    position: absolute;
+    background-color: rgba(247, 247, 247, 0.6);
+}
+
+.player-unit-information{
+    top: 0;
+    left: 0;
+    width: 30vmin;
+}
+
+.enemy-unit-information{
+    top: 0;
+    right: 0;
+    width: 30vmin;
+}
+
+.units-title{
+    text-align: center;
 }
