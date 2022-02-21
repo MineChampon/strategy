@@ -8,7 +8,7 @@ $(function () {
         if (display_damage_text) {
             const def = $('.defense-unit-image');
             const def_off = def.offset();
-            const damage_dom = $('.display_damage_text');
+            const damage_dom = $('.display-damage-text');
             damage_dom_top = def_off.top;
             damage_dom
                 .css('top', '14em')
@@ -92,10 +92,96 @@ $(function () {
                 .animate({
                     marginTop: '12em',
                     marginLeft: '10em'
-                }, 3000);
+                }, 2000);
             await $('.attack-unit-image').animate({
                 marginLeft: '80em'
-            }, 2000).promise();
+            }, 1300).promise();
+            return new Promise(function (resolve, reject) {
+                resolve();
+            });
+        })();
+    };
+
+    attack_animate.fire = (damage, is_critical, is_hit) => {
+        return (async () => {
+            const atk = $('.attack-unit-image');
+            const def = $('.defense-unit-image');
+            $('.attack-animation-content').append(
+                create_animate_img('fire', 'fire d-none'));
+            atk_off = atk.offset();
+            await atk
+                .animate({
+                    rotate: '17deg',
+                    marginLeft: '75em'
+                }, 1000).promise();
+            fire = $('.fire')
+                .css('z-index', 2)
+                .css('top', atk_off.top + atk.width() / 3)
+                .css('left', atk_off.left)
+            atk
+                .animate({
+                    rotate: '-10deg',
+                    marginLeft: '77em'
+                }, 200)
+                .animate({
+                    marginLeft: '75em',
+                    rotate: '0deg',
+                }, 1000)
+            fire
+                .removeClass('d-none')
+                .animate({
+                    marginLeft: '-120em'
+                }, 1500)
+            if (is_hit) {
+                await def
+                    .animate({
+                        opacity: '1',
+                    }, 600).promise();
+                def
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50);
+                render_defense_unit_hp(damage);
+            } else {
+                await def
+                    .css('z-index', 3)
+                    .animate({
+                        opacity: '1',
+                    }, 400)
+                    .animate({
+                        marginTop: '15em',
+                        marginLeft: '5em'
+                    }, 300)
+                    .animate({
+                        opacity: '1',
+                    }, 800).promise();
+            };
+            await def
+                .animate({
+                    marginTop: '12em',
+                    marginLeft: '10em'
+                }, 1000).promise();
             return new Promise(function (resolve, reject) {
                 resolve();
             });

@@ -58,14 +58,23 @@ press_A = () => {
     let __operation_mode = operation_mode;
     // マップ上でのAボタン押下なら
     if (operation_mode == 'map') {
+        const unit = get_unit(...map_gamepad_focus);
         // 選択したマスにユニットがいたら？
-        if (get_unit(...map_gamepad_focus)) {
+        if (unit) {
+            if (0 >= unit.action) {
+                return;
+            };
             // 行動選択ウィンドウ出す。
             add_action_window_dom(
                 get_square_dom(...map_gamepad_focus));
 
             // ウィンドウにフォーカスを当てるイメージ。
             __operation_mode = 'action';
+        } else {
+            add_manage_window_dom(
+                get_square_dom(...map_gamepad_focus));
+            // ウィンドウにフォーカスを当てるイメージ。
+            __operation_mode = 'manage';
         };
     };
 
@@ -91,6 +100,16 @@ press_A = () => {
         };
         if (choice_action.hasClass('status')) {
             console.log();
+        };
+    };
+
+    if (operation_mode == 'manage') {
+        const choice_manage = get_choice_manage_dom();
+        if (choice_manage.hasClass('end')) {
+            // モード変更
+            remove_manage_window_dom();
+            __operation_mode = 'map';
+            exec_turn_end();
         };
     };
 
@@ -123,9 +142,9 @@ press_A = () => {
         if (choice_action.hasClass('standby')) {
             // モード変更
             remove_action_window_dom();
+            minus_action_count(...map_gamepad_focus);
             __operation_mode = 'map';
         };
-
         // 移動後こうげき
         if (choice_action.hasClass('moved_attack')) {
             // モード変更
@@ -149,7 +168,6 @@ press_A = () => {
     };
 
     if (operation_mode.match(/target_select/)) {
-        // TODO: 敵味方判定
         if (get_square_dom(...map_gamepad_focus).hasClass('attack-target')) {
             // ユニットがいたら
             attack_unit = get_unit(...choice_unit_position);
@@ -175,6 +193,11 @@ press_B = () => {
     // 行動選択中のBボタン押下なら
     if (operation_mode == 'action') {
         remove_action_window_dom();
+        operation_mode = 'map';
+    };
+    // マップ上メニュー選択中のBボタン押下なら
+    if (operation_mode == 'manage') {
+        remove_manage_window_dom();
         operation_mode = 'map';
     };
     if (operation_mode == 'move') {

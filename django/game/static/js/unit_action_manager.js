@@ -101,6 +101,7 @@ exec_end_attack_process = (defense_unit, map_gamepad_focus) => {
         remove_unit_dom(...map_gamepad_focus);
         delete_unit(...map_gamepad_focus);
     };
+    minus_action_count(...choice_unit_position);
     draw_unit_status();
     end_attack_process();
 };

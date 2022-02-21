@@ -3,7 +3,7 @@ html {
 }
 
 body{
-    background-color: gainsboro;
+    background-color: #555;
     height: 100%;
     margin: 0;
     font-smooth: never;
@@ -53,11 +53,11 @@ body{
 
 @keyframes border-flash {
     0%,100% {
-        outline: 1vmin dashed rgba(255, 255, 255, 0.3);
+        outline: 1vmin dashed rgba(255, 255, 255, 1);
         outline-offset: -1vmin;
     }
     50% {
-        outline: 1vmin dashed rgba(255, 255, 255, 1);
+        outline: 1vmin dashed rgba(255, 255, 255, 0.3);
         outline-offset: -1vmin;
     }
 }
@@ -72,20 +72,24 @@ body{
     z-index: 1;
 }
 
-.action-window{
+.actiond-unit{
+    filter: grayscale(0.7);
+}
+
+.action-window, .manage-window{
     width: 12vmin;
     height: 8vmin;
     position: relative;
     z-index: 20;
 }
 
-.action-menu{
+.action-menu, .manage-menu{
     background-color: #fefefe;
     border: 0.1vmin solid;
     text-align: center;
 }
 
-.choice-action{
+.choice-action, .choice-manage{
     animation: choice-action-flash 1s linear infinite;
 }
 
@@ -128,11 +132,11 @@ body{
 
 @keyframes movable-flash {
     0%,100% {
-        opacity: 0.5;
+        opacity: 0.1;
 
     }
     50% {
-        opacity: 0.2;
+        opacity: 0.4;
     }
 }
 
@@ -265,7 +269,7 @@ body{
     font-size: 2rem;
 }
 
-.display_damage_text{
+.display-damage-text{
     position:absolute;
     text-align: center;
     font-size: 4vmin;
@@ -281,19 +285,24 @@ body{
 
 .unit-information{
     position: absolute;
-    background-color: rgba(247, 247, 247, 0.6);
+    background-color: rgba(247, 247, 247, 0.7);
+    z-index: 50;
 }
 
 .player-unit-information{
-    top: 0;
-    left: 0;
-    width: 30vmin;
+    bottom: 1vmin;
+    left: 1vmin;
+    width: 29vmin;
+    border-radius: 1vmin;
+    border: ridge 1vmin #000;
 }
 
 .enemy-unit-information{
-    top: 0;
-    right: 0;
-    width: 30vmin;
+    top: 1vmin;
+    right: 1vmin;
+    width: 29vmin;
+    border-radius: 1vmin;
+    border: ridge 1vmin #000;
 }
 
 .units-title{
@@ -316,4 +325,31 @@ body{
     position: absolute;
     width: 20vmin;
     height: 5vmin;
-};
+}
+
+.turn-manager{
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    top: 2vmin;
+    left: 2vmin;
+    width: 20vmin;
+    font-size: 2vmin;
+    text-align: center;
+}
+
+.fire{
+    transform: rotate(90deg);
+    position: absolute;
+    width: 20vmin;
+    height: 20vmin;
+    animation: fire-animation 0.3s linear infinite;
+}
+
+@keyframes fire-animation {
+    50% {
+        width: 13vmin;
+    }
+    0%, 100% {
+        width: 20vmin;
+    }
+}

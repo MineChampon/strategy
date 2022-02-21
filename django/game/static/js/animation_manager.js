@@ -36,7 +36,7 @@ $(function () {
                                             src="static/image/${defense_unit.code}.png">
                                         <img class="attack-unit-image d-none"
                                             src="static/image/${attack_unit.code}.png">
-                                        <div class="display_damage_text d-none">
+                                        <div class="display-damage-text d-none">
                                             ${critical_display_text}
                                             <span>${damage}</span>
                                         </div>

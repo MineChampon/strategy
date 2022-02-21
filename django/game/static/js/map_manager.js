@@ -62,6 +62,17 @@ const action_window_html = () => {
     return __action_window_html;
 };
 
+const manage_window_html = () => {
+    const __manage_window_html = `
+        <div class="manage-window">
+            <div class="end manage-menu choice-manage pt-2">
+                <p>おわり<p>
+            </div>
+        </div>
+    `;
+    return __manage_window_html;
+};
+
 const moved_action_window_html = () => {
     const __moved_action_window_html = `
         <div class="action-window">
@@ -144,12 +155,20 @@ $(function () {
         return $('.action-window');
     };
 
+    get_choice_manage_dom = () => {
+        return $('.choice-manage');
+    };
+
     get_attack_functions_window_dom = () => {
         return $('.attack-functions-window');
     };
 
     add_action_window_dom = (focus_square_dom) => {
         focus_square_dom.append(action_window_html());
+    };
+
+    add_manage_window_dom = (focus_square_dom) => {
+        focus_square_dom.append(manage_window_html());
     };
 
     add_moved_action_window_dom = (focus_square_dom) => {
@@ -160,8 +179,31 @@ $(function () {
         $('.action-window').remove();
     };
 
+    remove_manage_window_dom = () => {
+        $('.manage-window').remove();
+    };
+
+    remove_manage_window_dom = () => {
+        $('.manage-window').remove();
+    };
+
     remove_attack_functions_window_dom = () => {
         $('.attack-functions-window').remove();
+    };
+
+    add_class_actiond_unit = (row, col) => {
+        get_unit_dom(row, col)
+            .addClass('actiond-unit');
+    };
+
+    minus_action_count = (row, col) => {
+        const unit = get_unit(row, col);
+        unit.action = Math.max(unit.action - 1, 0);
+        console.log(unit);
+        if (0 >= unit.action) {
+            console.log('unit!');
+            add_class_actiond_unit(row, col);
+        };
     };
 
     select_action_menu = (direction) => {
