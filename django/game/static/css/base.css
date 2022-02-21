@@ -40,10 +40,11 @@ body{
 }
 
 .square{
-    outline: 1px solid;
-    outline-offset: -1px;
+    outline: 0.5px solid;
+    outline-offset: -0.5px;
     width: 10vmin;;
     height: 10vmin;
+    position: relative;
 }
 
 .square[data-map-focus="true"]{
@@ -52,12 +53,12 @@ body{
 
 @keyframes border-flash {
     0%,100% {
-        outline: 5px dashed rgba(255, 255, 255, 0.5);
-        outline-offset: -5px;
+        outline: 1vmin dashed rgba(255, 255, 255, 0.3);
+        outline-offset: -1vmin;
     }
     50% {
-        outline: 5px dashed rgba(255, 255, 255, 1);
-        outline-offset: -5px;
+        outline: 1vmin dashed rgba(255, 255, 255, 1);
+        outline-offset: -1vmin;
     }
 }
 
@@ -68,7 +69,7 @@ body{
 
 .unit-img{
     position: relative;
-    z-index: 10;
+    z-index: 1;
 }
 
 .action-window{
@@ -297,4 +298,15 @@ body{
 
 .units-title{
     text-align: center;
+}
+
+.has-unit-player{
+    outline: solid rgba(0, 0, 255, 0.5);
+    border-radius: 0.3vmin;
+}
+
+.has-unit-enemy{
+    transform: scale(-1, 1);
+    outline: solid rgba(255, 0, 0, 0.5);
+    border-radius: 0.3vmin;
 }

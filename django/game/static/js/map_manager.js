@@ -27,7 +27,7 @@ const create_map_square_html = (map_square_info) => {
         const unit = map_square_info['unit'];
         unit_html = `
             <div class="unit w-100 h-100">
-                <img class="unit-img w-100 h-100" src="static/image/${unit.code}_map.png">
+                <img class="unit-img has-unit-${unit.has_unit} w-100 h-100" src="static/image/${unit.code}_map.png">
                 </img>
             </div>
         `;
@@ -76,10 +76,10 @@ const moved_action_window_html = () => {
     return __moved_action_window_html;
 };
 
-const create_unit_html = (unit_code) => {
+const create_unit_html = (unit) => {
     const unit_html = `
         <div class="unit w-100 h-100">
-            <img class="unit-img w-100 h-100" src="static/image/${unit_code}_map.png">
+            <img class="unit-img has-unit-${unit.has_unit} w-100 h-100" src="static/image/${unit.code}_map.png">
             </img>
         </div>
     `;
@@ -132,7 +132,7 @@ $(function () {
 
     set_unit_dom = (unit_object, row, col) => {
         return get_square_dom(row, col).html(
-            create_unit_html(unit_object.code));
+            create_unit_html(unit_object));
     };
 
     // 行動選択ウィンドウ周り
@@ -279,13 +279,19 @@ $(function () {
             const distance =
                 Math.abs(parseInt(element.dataset.row) - row) +
                 Math.abs(parseInt(element.dataset.col) - col);
+
             if (!distance) {
                 return false;
             };
+
             if (attack_range_max >= distance && distance >= attack_range_min) {
-                // 味方 or 敵 判定必要
-                console.log(attack_range_max, distance, attack_range_min);
-                if ($(element).find('.unit').length) {
+                const unit_img_dom = $(element).find('.unit');
+                if (unit_img_dom.length) {
+                    const squere_unit = get_unit(
+                        element.dataset.row, element.dataset.col);
+                    if (unit.has_unit == squere_unit.has_unit) {
+                        return false;
+                    };
                     $(element).addClass('attack-target');
                 };
                 return true;
@@ -314,7 +320,6 @@ $(function () {
     draw_unit_status = () => {
         $('.units_status').html('');
         for (unit of get_all_unit()) {
-            console.log(unit.has_unit);
             $(`.${unit.has_unit}-units`).append(
                 `
                     <img class="unit-preview" src="static/image/${unit.code}.png">

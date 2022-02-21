@@ -155,7 +155,6 @@ press_A = () => {
             attack_unit = get_unit(...choice_unit_position);
             defense_unit = get_unit(...map_gamepad_focus);
             if (attack_unit && defense_unit) {
-                console.log(attack_function);
                 exec_attack_process(
                     attack_unit = attack_unit,
                     defense_unit = defense_unit,

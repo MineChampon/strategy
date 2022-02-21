@@ -18,7 +18,6 @@ get_all_unit = () => {
     for (map_row of map_over_all) {
         for (square of map_row) {
             if (square.unit) {
-                console.log(row_index, col_index);
                 square.unit.row = row_index;
                 square.unit.col = col_index;
                 all_unit.push(square.unit);
