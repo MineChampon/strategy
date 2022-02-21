@@ -312,7 +312,7 @@ press_UP = () => {
     };
 
     // 技選択モード中の上キー押下なら
-    if (operation_mode == 'select_attack') {
+    if (operation_mode.match(/select_attack/)) {
         // 不安あり
         select_attack_function(-1);
     };
@@ -351,7 +351,7 @@ press_DOWN = () => {
     };
 
     // 技選択モード中の下キー押下なら
-    if (operation_mode == 'select_attack') {
+    if (operation_mode.match(/select_attack/)) {
         // 不安あり
         select_attack_function(1);
     };
