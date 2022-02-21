@@ -20,6 +20,14 @@ $(function () {
                 }, 400);
         };
     };
+
+    create_animate_img = (func_name, class_name, attr) => {
+        const material = `
+            <img src="/static/image/${func_name}.png"class="${class_name}">
+        `;
+        return material;
+    };
+
     attack_animate.body_blow = (damage, is_critical, is_hit) => {
         return (async () => {
             $('.attack-unit-image')
@@ -94,11 +102,184 @@ $(function () {
         })();
     };
 
-    create_animate_img = (func_name, class_name, attr) => {
-        const material = `
-            <img src="/static/image/${func_name}.png"class="${class_name}">
-        `;
-        return material;
+    attack_animate.fighting = (damage, is_critical, is_hit) => {
+        return (async () => {
+            $('.attack-unit-image')
+                .animate({
+                    rotate: '-2deg'
+                }, 150)
+            await $('.attack-unit-image')
+                .animate({
+                    marginLeft: '35em'
+                }, 600).promise();
+            $('.attack-unit-image')
+                .animate({
+                    rotate: '-7deg'
+                }, 50);
+            if (is_hit) {
+                await $('.attack-unit-image')
+                    .animate({
+                        marginLeft: '17em'
+                    }, 195).promise();
+
+                $('.defense-unit-image')
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50);
+
+                await $('.attack-unit-image')
+                    .animate({
+                        rotate: '-2deg',
+                        marginLeft: '25em'
+                    }, 210)
+                    .animate({
+                        rotate: '-7deg',
+                        marginLeft: '17em'
+                    }, 150).promise();
+
+                render_defense_unit_hp(damage);
+
+                $('.defense-unit-image')
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50);
+
+            } else {
+                $('.attack-unit-image')
+                    .animate({
+                        marginLeft: '17em'
+                    }, 150);
+                await $('.defense-unit-image')
+                    .css('z-index', 2)
+                    .animate({
+                        marginTop: '14em',
+                        marginLeft: '5em'
+                    }, 200)
+                    .animate({
+                        marginTop: '14em',
+                        marginLeft: '5em'
+                    }, 700).promise();
+            };
+            $('.attack-unit-image')
+                .animate({
+                    rotate: '0deg'
+                }, 300);
+            $('.defense-unit-image')
+                .animate({
+                    marginTop: '12em',
+                    marginLeft: '10em'
+                }, 3000);
+            await $('.attack-unit-image').animate({
+                marginLeft: '80em'
+            }, 2000).promise();
+            return new Promise(function (resolve, reject) {
+                resolve();
+            });
+        })();
+    };
+
+    attack_animate.beam_rifle = (damage, is_critical, is_hit) => {
+        return (async () => {
+            const atk = $('.attack-unit-image');
+            const def = $('.defense-unit-image');
+            $('.attack-animation-content').append(
+                create_animate_img('beam_rifle', 'beam_rifle d-none'));
+            atk_off = atk.offset();
+            await atk
+                .animate({
+                    rotate: '17deg',
+                    marginLeft: '75em'
+                }, 1000).promise();
+            br = $('.beam_rifle')
+                .css('top', atk_off.top + atk.width() / 2)
+                .css('left', atk_off.left)
+            atk
+                .animate({
+                    marginLeft: '76em'
+                }, 100)
+                .animate({
+                    marginLeft: '74em'
+                }, 500);;
+            await br
+                .removeClass('d-none')
+                .animate({
+                    marginLeft: '-50em'
+                }, 200).promise();
+            if (is_hit) {
+                br
+                    .animate({
+                        marginLeft: '-120em'
+                    }, 200)
+                    .css('z-index', 2);
+                def
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '0.5',
+                        marginLeft: '-=1rem',
+                    }, 50)
+                    .animate({
+                        opacity: '1',
+                        marginLeft: '+=1rem',
+                    }, 50);
+                render_defense_unit_hp(damage);
+            } else {
+                def
+                    .css('z-index', 2)
+                    .animate({
+                        marginTop: '13em',
+                        marginLeft: '4em'
+                    }, 50)
+                    .animate({
+                        marginTop: '13em',
+                        marginLeft: '4em'
+                    }, 700);
+                br
+                    .animate({
+                        marginLeft: '-120em'
+                    }, 200);
+            };
+            await def
+                .animate({
+                    marginTop: '12em',
+                    marginLeft: '10em'
+                }, 1000).promise();
+            return new Promise(function (resolve, reject) {
+                resolve();
+            });
+        })();
     };
 
     attack_animate.fin_funnel = (damage, is_critical, is_hit) => {
@@ -407,6 +588,20 @@ $(function () {
             await move_3(funnel_3);
 
             return new Promise(async (resolve, reject) => {
+                resolve();
+            });
+        })();
+    };
+
+    attack_animate.template = (damage, is_critical, is_hit) => {
+        return (async () => {
+            atk = $('.attack-unit-image');
+            def = $('.defense-unit-image');
+            if (is_hit) {
+                render_defense_unit_hp(damage);
+            } else {
+            };
+            return new Promise(function (resolve, reject) {
                 resolve();
             });
         })();
