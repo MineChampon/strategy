@@ -199,9 +199,7 @@ $(function () {
     minus_action_count = (row, col) => {
         const unit = get_unit(row, col);
         unit.action = Math.max(unit.action - 1, 0);
-        console.log(unit);
         if (0 >= unit.action) {
-            console.log('unit!');
             add_class_actiond_unit(row, col);
         };
     };

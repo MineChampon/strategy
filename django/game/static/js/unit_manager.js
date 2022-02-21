@@ -18,8 +18,8 @@ class Unit {
         this.speed = speed;
         this.move = move;
         this.has_unit = has_unit;
-        this.max_action = 1;
-        this.action = 1;
+        this.max_action = 2;
+        this.action = 2;
     };
 };
 
