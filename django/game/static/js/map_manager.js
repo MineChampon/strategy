@@ -47,7 +47,7 @@ const create_map_square_html = (map_square_info) => {
 
 const action_window_html = () => {
     const __action_window_html = `
-        <div class="action-window">
+        <div class="action-window d-none">
             <div class="move action-menu choice-action pt-2">
                 <p>いどう<p>
             </div>
@@ -164,7 +164,16 @@ $(function () {
     };
 
     add_action_window_dom = (focus_square_dom) => {
-        focus_square_dom.append(action_window_html());
+        $('.map-set-container').append(action_window_html());
+        if (map_over_all.length / 2 >= map_gamepad_focus[0]) {
+            $('.action-window').css('top', `0px`);
+        } else {
+            console.log(focus_square_dom.offset().top, focus_square_dom.height());
+            $('.action-window').css('bottom', `${$(window).height() - focus_square_dom.offset().top - focus_square_dom.height()}px`);
+        };
+        $('.action-window')
+            .css('left', `${focus_square_dom.width() + focus_square_dom.offset().left}px`)
+            .removeClass('d-none');
     };
 
     add_manage_window_dom = (focus_square_dom) => {

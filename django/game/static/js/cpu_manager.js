@@ -1,5 +1,5 @@
 $(function () {
-    time_margin = (sec = 500) => {
+    const time_margin = (sec = 500) => {
         return new Promise(resolve => setTimeout(resolve, sec));
     };
     exec_cpu = async () => {
@@ -64,8 +64,7 @@ $(function () {
                 let max_atk_range = Math.max(...atk_func.range);
                 if (atk_func.moved) {
                     max_atk_range += unit.move;
-                }
-                // このターン攻撃できないのであれば、continueする。
+                };
                 if (atk_range >= min_distanse) {
                     is_attack = true;
                     choice_atk_func = atk_func;
@@ -81,13 +80,16 @@ $(function () {
             // 行動パターン確定。
             console.log(choice_atk_func, is_attack, is_moved_attack, is_move);
             if (is_move) {
+                await time_margin();
                 // 移動するのであれば
                 // 移動可能マスを全て取得する。
                 is_move_squere_all = {};
                 for (squere of $('.square')) {
                     const sq_row = $(squere).data('row');
                     const sq_col = $(squere).data('col');
-
+                    if (get_unit(sq_row, sq_col)) {
+                        continue;
+                    };
                     const distance = Math.abs(sq_row - row) + Math.abs(sq_col - col);
                     if (unit.move >= distance) {
                         const p_unit_moved_distanse =
@@ -96,22 +98,22 @@ $(function () {
                         if (!is_move_squere_all[p_unit_moved_distanse]) {
                             is_move_squere_all[p_unit_moved_distanse] = [];
                         };
-                        if (!get_unit(sq_row, sq_col)) {
-                            is_move_squere_all[
-                                p_unit_moved_distanse].push([sq_row, sq_col]);
-                        };
+                        is_move_squere_all[
+                            p_unit_moved_distanse].push([sq_row, sq_col]);
                     };
                 };
+                console.log(is_move_squere_all);
                 const move_target = is_move_squere_all[Math.min(...Object.keys(is_move_squere_all))][0];
 
                 await move_unit([row, col], move_target);
                 row = parseInt(move_target[0]);
                 col = parseInt(move_target[1]);
-                if (!is_attack || !is_moved_attack) {
+                if (!is_attack && !is_moved_attack) {
                     minus_action_count(row, col);
                 };
             };
             if (is_attack || is_moved_attack) {
+                await time_margin();
                 await exec_attack_process(
                     attack_unit = unit,
                     defense_unit = focus_p_unit,
@@ -120,7 +122,9 @@ $(function () {
                 minus_action_count(row, col);
             };
         };
-
         exec_turn_end();
+        return new Promise(async (resolve, reject) => {
+            resolve();
+        });
     };
 });

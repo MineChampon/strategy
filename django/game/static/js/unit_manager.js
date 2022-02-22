@@ -55,10 +55,10 @@ class Dragon extends Unit {
         super(
             'dragon',
             'ドラゴンべコ',
-            4500,
-            600,
+            3000,
             1000,
-            500,
+            1000,
+            1000,
             3,
             has_unit,
         );
@@ -75,10 +75,10 @@ class Dragon extends Unit {
         new AttackFunction(
             'fire',
             'ほのお',
-            1400,
-            [1, 3],
+            1500,
+            [1, 2],
             -10,
-            true,
+            false,
         )
     ];
 };
@@ -88,10 +88,10 @@ class Centaur extends Unit {
         super(
             'centaur',
             'ケンタウベコ',
-            2800,
-            400,
-            800,
-            800,
+            2500,
+            1000,
+            1000,
+            1000,
             4,
             has_unit,
         );
@@ -108,10 +108,10 @@ class Centaur extends Unit {
         new AttackFunction(
             'fire',
             'ほのお',
-            1400,
-            [1, 3],
+            1500,
+            [1, 2],
             -10,
-            true,
+            false,
         )
     ];
 };
@@ -121,10 +121,10 @@ class NewGundam extends Unit {
         super(
             'ν_gundam',
             'νガンダム',
-            2800,
-            1200,
-            500,
-            2500,
+            2000,
+            2000,
+            1000,
+            3000,
             7,
             has_unit,
         );
@@ -141,7 +141,7 @@ class NewGundam extends Unit {
         new AttackFunction(
             'beam_rifle',
             'ビームライフル',
-            1600,
+            1800,
             [1, 3],
             -10,
             true,

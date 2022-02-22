@@ -79,7 +79,7 @@ body{
 .action-window, .manage-window{
     width: 12vmin;
     height: 8vmin;
-    position: relative;
+    position: absolute;
     z-index: 20;
 }
 
