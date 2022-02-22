@@ -200,9 +200,12 @@ body{
     background-color: #111;
 }
 
+.animation-enemy-unit{
+    filter: hue-rotate(240deg);
+}
+
 .unit-image-container{
-    outline: 5mm ridge rgb(247, 247, 247);
-    outline-offset: -4mm;
+    border: 5mm ridge rgb(247, 247, 247);
     width: 200px;
     height: auto;
     background-color: #eee;

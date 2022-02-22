@@ -32,9 +32,9 @@ $(function () {
                                 </div>
                                 <div class="attack-animation-container row h-60">
                                     <div class="col-12 attack-animation-content">
-                                        <img class="defense-unit-image d-none"
+                                        <img class="defense-unit-image animation-${defense_unit.has_unit}-unit d-none"
                                             src="static/image/${defense_unit.code}.png">
-                                        <img class="attack-unit-image d-none"
+                                        <img class="attack-unit-image animation-${attack_unit.has_unit}-unit d-none"
                                             src="static/image/${attack_unit.code}.png">
                                         <div class="display-damage-text d-none">
                                             ${critical_display_text}
@@ -44,7 +44,7 @@ $(function () {
                                 </div>
                                 <div class="row h-25 unit-text-window-container">
                                     <div class="unit-image-container">
-                                        <img class="unit-image w-100 h-100"
+                                        <img class="unit-image w-100 h-100 animation-${attack_unit.has_unit}-unit"
                                             src="static/image/${attack_unit.code}_map.png">
                                     </div> 
                                     <div class="unit-text-container w-auto h-100">

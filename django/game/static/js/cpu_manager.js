@@ -102,10 +102,7 @@ $(function () {
                         };
                     };
                 };
-                const move_target = shuffle(
-                    is_move_squere_all[
-                    Math.min(...Object.keys(is_move_squere_all))
-                    ])[0];
+                const move_target = is_move_squere_all[Math.min(...Object.keys(is_move_squere_all))][0];
 
                 await move_unit([row, col], move_target);
                 row = parseInt(move_target[0]);
@@ -123,6 +120,7 @@ $(function () {
                 minus_action_count(row, col);
             };
         };
+
         exec_turn_end();
     };
 });

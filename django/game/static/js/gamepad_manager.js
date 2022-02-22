@@ -61,7 +61,10 @@ press_A = () => {
         const unit = get_unit(...map_gamepad_focus);
         // 選択したマスにユニットがいたら？
         if (unit) {
-            if (0 >= unit.action) {
+            if (
+                0 >= unit.action ||
+                unit.has_unit != turn_player
+            ) {
                 return;
             };
             // 行動選択ウィンドウ出す。

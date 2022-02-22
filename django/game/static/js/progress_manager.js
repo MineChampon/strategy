@@ -27,12 +27,14 @@ exec_turn_end = async () => {
     turn_player = turn_order[order];
     $('.turn-status').text(`${name_mapping[turn_player]}のターン`);
     $('.turn-counter').text(`ターン ${Math.ceil(turn_count / 2)}`);
-    // 暫定対応
 
+    // 暫定対応
+    if (turn_player == 'player') {
+        do_not_accept_entry = false;
+    };
     if (turn_player == 'enemy') {
         await exec_cpu();
     };
-    do_not_accept_entry = false;
 };
 
 game_init = () => {
