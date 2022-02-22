@@ -305,19 +305,27 @@ body{
     border: ridge 1vmin #000;
 }
 
+.enemy-unit-preview{
+    filter: hue-rotate(240deg);
+}
+
 .units-title{
     text-align: center;
 }
 
-.has-unit-player{
+.has-unit-player-body{
     outline: solid rgba(0, 0, 255, 0.5);
     border-radius: 0.3vmin;
 }
 
-.has-unit-enemy{
-    transform: scale(-1, 1);
+.has-unit-enemy-body{
     outline: solid rgba(255, 0, 0, 0.5);
     border-radius: 0.3vmin;
+}
+
+.has-unit-enemy{
+    filter: hue-rotate(240deg);
+    transform: scale(-1, 1);
 }
 
 .beam_rifle{

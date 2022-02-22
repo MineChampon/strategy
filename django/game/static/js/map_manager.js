@@ -26,7 +26,7 @@ const create_map_square_html = (map_square_info) => {
     if (map_square_info['unit']) {
         const unit = map_square_info['unit'];
         unit_html = `
-            <div class="unit w-100 h-100">
+            <div class="unit has-unit-${unit.has_unit}-body w-100 h-100">
                 <img class="unit-img has-unit-${unit.has_unit} w-100 h-100" src="static/image/${unit.code}_map.png">
                 </img>
             </div>
@@ -89,7 +89,7 @@ const moved_action_window_html = () => {
 
 const create_unit_html = (unit) => {
     const unit_html = `
-        <div class="unit w-100 h-100">
+        <div class="unit has-unit-${unit.has_unit}-body w-100 h-100">
             <img class="unit-img has-unit-${unit.has_unit} w-100 h-100" src="static/image/${unit.code}_map.png">
             </img>
         </div>
@@ -196,6 +196,11 @@ $(function () {
             .addClass('actiond-unit');
     };
 
+    remove_class_actiond_unit = () => {
+        $('.actiond-unit')
+            .removeClass('actiond-unit');
+    };
+
     minus_action_count = (row, col) => {
         const unit = get_unit(row, col);
         unit.action = Math.max(unit.action - 1, 0);
@@ -243,7 +248,8 @@ $(function () {
             if ($(element).find('.unit').length) {
                 return false;
             };
-            distance = Math.abs(parseInt(element.dataset.row) - row) + Math.abs(parseInt(element.dataset.col) - col);
+            distance = Math.abs(parseInt(element.dataset.row) - row)
+                + Math.abs(parseInt(element.dataset.col) - col);
             if (move_range >= distance) {
                 return true;
             };
@@ -362,7 +368,7 @@ $(function () {
         for (unit of get_all_unit()) {
             $(`.${unit.has_unit}-units`).append(
                 `
-                    <img class="unit-preview" src="static/image/${unit.code}.png">
+                    <img class="unit-preview ${unit.has_unit}-unit-preview" src="static/image/${unit.code}.png">
                     <p>${unit.name}</p>
                     <p>${unit.hp} / ${unit.max_hp}</p>
                 `

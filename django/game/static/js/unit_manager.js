@@ -18,8 +18,8 @@ class Unit {
         this.speed = speed;
         this.move = move;
         this.has_unit = has_unit;
-        this.max_action = 2;
-        this.action = 2;
+        this.max_action = 1;
+        this.action = this.max_action;
     };
 };
 
@@ -106,12 +106,13 @@ class Centaur extends Unit {
             true,
         ),
         new AttackFunction(
-            'fin_funnel',
-            'フィン・ファンネル',
-            4500,
-            [1, 8],
-            20,
-        ),
+            'fire',
+            'ほのお',
+            1400,
+            [1, 3],
+            -10,
+            true,
+        )
     ];
 };
 

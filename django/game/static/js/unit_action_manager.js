@@ -11,7 +11,7 @@ set_unit = (unit_object, row, col) => {
     return map_over_all[row][col].unit;
 };
 
-get_all_unit = () => {
+get_all_unit = (has_unit = '') => {
     let all_unit = [];
     let row_index = 0;
     let col_index = 0;
@@ -20,7 +20,13 @@ get_all_unit = () => {
             if (square.unit) {
                 square.unit.row = row_index;
                 square.unit.col = col_index;
-                all_unit.push(square.unit);
+                if (has_unit) {
+                    if (has_unit == square.unit.has_unit) {
+                        all_unit.push(square.unit);
+                    };
+                } else {
+                    all_unit.push(square.unit);
+                };
             };
             col_index += 1;
         };
@@ -101,12 +107,11 @@ exec_end_attack_process = (defense_unit, map_gamepad_focus) => {
         remove_unit_dom(...map_gamepad_focus);
         delete_unit(...map_gamepad_focus);
     };
-    minus_action_count(...choice_unit_position);
     draw_unit_status();
     end_attack_process();
 };
 
-exec_attack_process = (attack_unit, defense_unit, attack_function, map_gamepad_focus) => {
+exec_attack_process = async (attack_unit, defense_unit, attack_function, map_gamepad_focus) => {
     const hit_rate = calc_hit_rate(attack_unit, defense_unit, attack_function);
     let damage = 0;
     let is_critical = false;
@@ -123,11 +128,9 @@ exec_attack_process = (attack_unit, defense_unit, attack_function, map_gamepad_f
     } else {
         console.log('no hit');
     };
-    (async () => {
-        await unit_attack_animate(
-            attack_unit, defense_unit, attack_function,
-            before_defense_unit_hp, damage,
-            is_critical, is_hit, critical_rate, hit_rate);
-        exec_end_attack_process(defense_unit, map_gamepad_focus);
-    })();
+    await unit_attack_animate(
+        attack_unit, defense_unit, attack_function,
+        before_defense_unit_hp, damage,
+        is_critical, is_hit, critical_rate, hit_rate);
+    exec_end_attack_process(defense_unit, map_gamepad_focus);
 };

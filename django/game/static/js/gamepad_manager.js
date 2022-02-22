@@ -178,6 +178,7 @@ press_A = () => {
                     defense_unit = defense_unit,
                     attack_function = attack_function,
                     map_gamepad_focus = map_gamepad_focus);
+                minus_action_count(...choice_unit_position);
                 __operation_mode = 'map';
             };
         };
